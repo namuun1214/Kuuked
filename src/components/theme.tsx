@@ -5,7 +5,7 @@ export const colors = {
   carbon: '#FFFFFF',
   primary: '#5969BD',
   default: '#FFFFFF',
-  tertiary: '#DBDFF1',
+  tertiary: '#AFAFAF',
   red: '#f4495d',
   cyan: '#37CDFA',
   lightGreen: '#C78EFF',
@@ -33,7 +33,7 @@ const mapRoleToText = {
   info: 'grey4',
   error: 'red',
   secondary: 'carbon',
-  tertiary: 'carbon',
+  tertiary: 'tertiary',
 };
 
 const mapRoleToBackground = {
@@ -45,7 +45,7 @@ const mapRoleToBackground = {
   info: 'primary',
   error: 'red',
   secondary: 'grey3',
-  tertiary: 'grey2',
+  tertiary: 'tertiary',
   grey: 'grey',
   transparent: 'transparent',
   overlay: 'overlay',
@@ -62,7 +62,7 @@ const mapRoleToBorder = {
   primary: 'default',
   info: 'primary',
   error: 'red',
-  secondary: 'grey3',
+  secondary: 'tertiary',
 };
 
 const LINE_MAP = {

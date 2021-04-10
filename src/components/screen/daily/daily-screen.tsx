@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { Route, SafeAreaView } from 'react-native';
-import { KuukedLogo } from '../../../assets';
 import {
   Button,
   Center,
@@ -15,22 +14,70 @@ import { useRoute } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Border } from '../../core';
 import { DropDown } from '../../dropdown';
-import {
-  CategoryContext,
-  CategoryProvider,
-} from '../category/categoryProvider';
+import { CatalogContext } from '../category/categoryProvider';
+export const TimePicker = () => {
+  return (
+    <Queue size={5} justifyContent="space-between" alignItems="center">
+      <DropDown.Provider>
+        <DropDown.Trigger width={90}>12</DropDown.Trigger>
+        <DropDown.Content width={90}>
+          <Stack size={4}>
+            <Border bottomWidth="xlight" role="secondary">
+              <TouchableOpacity
+                onPress={() => {
+                  // setSelectedName(item.name);
+                }}>
+                <Text>1</Text>
+              </TouchableOpacity>
+            </Border>
+          </Stack>
+        </DropDown.Content>
+      </DropDown.Provider>
+      <DropDown.Provider>
+        <DropDown.Trigger width={90}>34</DropDown.Trigger>
+        <DropDown.Content width={90}>
+          <Stack size={4}>
+            <Border bottomWidth="xlight" role="secondary">
+              <TouchableOpacity
+                onPress={() => {
+                  // setSelectedName(item.name);
+                }}>
+                <Text>1</Text>
+              </TouchableOpacity>
+            </Border>
+          </Stack>
+        </DropDown.Content>
+      </DropDown.Provider>
+      <DropDown.Provider>
+        <DropDown.Trigger width={90}>AM</DropDown.Trigger>
+        <DropDown.Content width={90}>
+          <Stack size={4}>
+            <Border bottomWidth="xlight" role="secondary">
+              <TouchableOpacity
+                onPress={() => {
+                  // setSelectedName(item.name);
+                }}>
+                <Text>PM</Text>
+              </TouchableOpacity>
+            </Border>
+          </Stack>
+        </DropDown.Content>
+      </DropDown.Provider>
+    </Queue>
+  );
+};
 const DailyScreen = () => {
   const router = useRoute<Route<string, any>>();
   const { name } = router?.params || {};
   const [isRoutineClicked, setRoutineClicked] = useState(true);
   const [isMemoryClicked, setMemoryClicked] = useState(false);
-  const { categoryList } = useContext(CategoryContext);
-  console.log(categoryList, 'hahoho');
+  const { catalog: categoryData } = useContext(CatalogContext);
+  const [selectedName, setSelectedName] = useState(name);
   return (
     <SafeAreaView>
       <Header withBack={true} headerText="Өдөр тутмын бүртгэл" />
       <Margin size={[5, 3, 4, 3]}>
-        <Stack size={3}>
+        <Stack size={5}>
           <Queue justifyContent="space-around">
             <TouchableOpacity
               onPress={() => {
@@ -69,20 +116,33 @@ const DailyScreen = () => {
           </Queue>
           <Center>
             <DropDown.Provider>
-              <DropDown.Trigger width={340}>{name}</DropDown.Trigger>
-              <DropDown.Content width={340}>
-                {categoryList.map(item => {
-                  return <Button>{item}</Button>;
-                })}
+              <DropDown.Trigger width={330}>{selectedName}</DropDown.Trigger>
+              <DropDown.Content width={330}>
+                <Stack size={4}>
+                  {categoryData.map(item => {
+                    return (
+                      <Border bottomWidth="xlight" role="secondary">
+                        <TouchableOpacity
+                          onPress={() => {
+                            setSelectedName(item.name);
+                          }}>
+                          <Text>{item.name}</Text>
+                        </TouchableOpacity>
+                      </Border>
+                    );
+                  })}
+                </Stack>
               </DropDown.Content>
             </DropDown.Provider>
-            {/* <Button
+            <Text> Эхэлсэн цаг</Text>
+            <TimePicker />
+            <Button
               backgroundRole="success"
               radius="xlarge"
               size={[4, 7, 4, 7]}
               textRole="light">
               Болсон
-            </Button> */}
+            </Button>
           </Center>
         </Stack>
       </Margin>

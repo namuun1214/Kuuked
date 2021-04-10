@@ -46,6 +46,7 @@ const HomeScreen = () => {
   const gotoCategoryScreen = () => {
     navigation.navigate(NavigationRoutes.SelectCategoryScreen);
   };
+  categoryData && console.log(categoryData, 'egeg');
   return (
     <SafeAreaView>
       <Header withBack={true} headerText="Нүүр хуудас" />
@@ -59,8 +60,8 @@ const HomeScreen = () => {
                 alignContent: 'space-between',
                 flexWrap: 'wrap',
               }}>
-              {categoryData?.catalog &&
-                categoryData?.catalog.map(category => {
+              {categoryData &&
+                categoryData.map(category => {
                   let { url, name } = category;
                   return <DailyRoutine url={url} name={name} />;
                 })}

@@ -5,8 +5,11 @@ import { Header } from '../../header';
 import _ from 'lodash';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useFirestoreCollection } from '../../../firebase';
-import { Center, Padding } from '../../layout';
+import { Center, Overlay, Padding } from '../../layout';
 import { CatalogContext } from './categoryProvider';
+import { useNavigation } from '@react-navigation/core';
+import { NavigationRoutes } from '../../navigation/navigation-param';
+import { CorrectIcon } from '../../../assets';
 
 const window = Dimensions.get('window');
 const DailyRoutine = (props: {
@@ -21,7 +24,13 @@ const DailyRoutine = (props: {
   const selected = isSelected(newCatalog);
   const addCatalog = newCatalog => {
     if (isSelected(newCatalog)) {
-      setCatalog(_.without(catalog, newCatalog));
+      console.log('hahas');
+      let tmpCatalog = catalog;
+      _.remove(tmpCatalog, n => {
+        return n.name === newCatalog.name;
+      });
+      setCatalog(tmpCatalog);
+
       return;
     }
     setCatalog((catalog: any) => {
@@ -51,14 +60,22 @@ const DailyRoutine = (props: {
             </Stack>
           </Padding>
         </Border>
+        <Overlay zIndex={99} top={-1} right={0}>
+          {selected && <CorrectIcon />}
+        </Overlay>
       </Margin>
     </Pressable>
   );
 };
 
 export default () => {
+  const navigation = useNavigation();
   let { data, loading } = useFirestoreCollection(['catalog']);
   const { catalog, setCatalog, save } = useContext(CatalogContext);
+  const saveCatalog = () => {
+    save();
+    navigation.navigate(NavigationRoutes.Home);
+  };
   return (
     <SafeAreaView>
       <Header withBack={true} headerText="Категори сонгох" />
@@ -94,7 +111,7 @@ export default () => {
               backgroundRole="success"
               radius="xmedium"
               size={[4, 0, 4, 0]}
-              onPress={save}
+              onPress={saveCatalog}
               textRole="light">
               Сонгох
             </Button>

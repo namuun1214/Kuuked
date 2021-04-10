@@ -28,23 +28,15 @@ export const DropDown = {
       <View style={{ zIndex: 99 }}>
         <AnimatedFadeInView visible={visible}>
           {/* <Overlay zIndex={99}> */}
-          {children.map(item => {
-            return (
-              <Background width={width || 120}>
-                <Border
-                  radius="large"
-                  backgroundRole="light"
-                  role="primary"
-                  {...props}>
-                  <Padding size={[3, 3, 3, 3]}>
-                    <Queue size={3} justifyContent="space-between">
-                      {item}
-                    </Queue>
-                  </Padding>
-                </Border>
-              </Background>
-            );
-          })}
+          <Background width={width || 120}>
+            <Border
+              radius="large"
+              backgroundRole="light"
+              role="primary"
+              {...props}>
+              <Padding size={[5, 3, 3, 3]}>{children}</Padding>
+            </Border>
+          </Background>
           {/* </Overlay> */}
         </AnimatedFadeInView>
       </View>
@@ -63,7 +55,7 @@ export const DropDown = {
             {...props}>
             <Padding size={[3, 3, 3, 3]}>
               <Queue size={3} justifyContent="space-between">
-                <Text>{children || 'Сонгоно уу...'}</Text>
+                <Text role="success">{children || 'Сонгоно уу...'}</Text>
                 <Center flex={1}>
                   <ArrowDownIcon />
                 </Center>
