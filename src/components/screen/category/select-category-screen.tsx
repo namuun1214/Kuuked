@@ -13,58 +13,34 @@ import { CorrectIcon } from '../../../assets';
 
 const window = Dimensions.get('window');
 const DailyRoutine = (props: {
-  url: any;
-  name: any;
-  catalog: any;
-  setCatalog: any;
+  url: string;
+  name: string;
+  selected: boolean;
 }) => {
-  const { url, name, catalog, setCatalog } = props;
-  const isSelected = (item: any) => _.some(catalog, item);
-  const newCatalog = { name, url };
-  const selected = isSelected(newCatalog);
-  const addCatalog = newCatalog => {
-    if (isSelected(newCatalog)) {
-      console.log('hahas');
-      let tmpCatalog = catalog;
-      _.remove(tmpCatalog, n => {
-        return n.name === newCatalog.name;
-      });
-      setCatalog(tmpCatalog);
-
-      return;
-    }
-    setCatalog((catalog: any) => {
-      return _.uniq([...catalog, newCatalog]);
-    });
-  };
+  const { url, name, selected } = props;
 
   return (
-    <Pressable
-      onPress={() => {
-        addCatalog(newCatalog);
-      }}>
-      <Margin size={[2, 2, 2, 2]}>
-        <Border
-          radius="large"
-          role={selected ? 'success' : 'primary'}
-          lineWidth="light"
-          backgroundRole="light">
-          <Padding size={[2, 2, 2, 2]}>
-            <Stack size={2} width={window.width / 4}>
-              <Center>
-                <RemoteImage width={60} resizeMode="contain" url={url} />
-              </Center>
-              <Text type="secondaryBody2" numberOfLines={2} textAlign="center">
-                {name}
-              </Text>
-            </Stack>
-          </Padding>
-        </Border>
-        <Overlay zIndex={99} top={-1} right={0}>
-          {selected && <CorrectIcon />}
-        </Overlay>
-      </Margin>
-    </Pressable>
+    <Margin size={[2, 2, 2, 2]}>
+      <Border
+        radius="large"
+        role={selected ? 'success' : 'primary'}
+        lineWidth="light"
+        backgroundRole="light">
+        <Padding size={[2, 2, 2, 2]}>
+          <Stack size={2} width={window.width / 4}>
+            <Center>
+              <RemoteImage width={60} resizeMode="contain" url={url} />
+            </Center>
+            <Text type="secondaryBody2" numberOfLines={2} textAlign="center">
+              {name}
+            </Text>
+          </Stack>
+        </Padding>
+      </Border>
+      <Overlay zIndex={99} top={-1} right={0}>
+        {selected && <CorrectIcon />}
+      </Overlay>
+    </Margin>
   );
 };
 
@@ -72,6 +48,16 @@ export default () => {
   const navigation = useNavigation();
   let { data, loading } = useFirestoreCollection(['catalog']);
   const { catalog, setCatalog, save } = useContext(CatalogContext);
+  const isSelected = (item: any) => _.some(catalog, item);
+  const addCatalog = newCatalog => {
+    if (isSelected(newCatalog)) {
+      setCatalog(_.without(catalog, newCatalog));
+      return;
+    }
+    setCatalog(catalog => {
+      return _.uniq([...catalog, newCatalog]);
+    });
+  };
   const saveCatalog = () => {
     save();
     navigation.navigate(NavigationRoutes.Home);
@@ -97,13 +83,18 @@ export default () => {
               {data &&
                 data.map((category: { image: any; name: any }) => {
                   let { image, name } = category;
+                  const selected = isSelected(category);
                   return (
-                    <DailyRoutine
-                      url={image}
-                      name={name}
-                      catalog={catalog}
-                      setCatalog={setCatalog}
-                    />
+                    <Pressable
+                      onPress={() => {
+                        addCatalog(category);
+                      }}>
+                      <DailyRoutine
+                        url={image}
+                        name={name}
+                        selected={selected}
+                      />
+                    </Pressable>
                   );
                 })}
             </View>
