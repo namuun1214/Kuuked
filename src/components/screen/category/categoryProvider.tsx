@@ -1,29 +1,23 @@
-import React, { createContext, useState } from 'react';
-import {
-  useFirestoreCollection,
-  useFirestoreDocument,
-} from '../../../firebase';
-import { USERS_HOME } from '../../../authentication';
-import { useNavigation } from '@react-navigation/native';
-import { NavigationRoutes } from '../../navigation/navigation-param';
+import React, { createContext, useEffect, useState } from 'react';
+import { useFirestoreDocument } from '../../../firebase';
+import { USERS_HOME, useUserUID } from '../../../authentication';
 export const CatalogContext = createContext({
   save: () => {},
-  update: (id: any, catalog: any) => {},
   catalog: [{}],
   setCatalog: (catalog: any) => {},
 });
 export const CategoryProvider = ({ children }) => {
   const [catalog, setCatalog] = useState([]);
+  const uid = useUserUID();
   const { updateRecord, data: catalogList } = useFirestoreDocument([
     USERS_HOME,
-    'KBVP5kjHwluSqkvLgTRr',
+    uid,
   ]);
-
+  useEffect(() => {
+    setCatalog(catalogList?.catalog);
+  }, [catalogList, uid]);
   const save = async () => {
     await updateRecord({ catalog });
-  };
-  const update = async (id, catalog) => {
-    await updateRecord(id, catalog);
   };
   return (
     <CatalogContext.Provider
@@ -31,7 +25,6 @@ export const CategoryProvider = ({ children }) => {
         catalog,
         setCatalog,
         save,
-        update,
       }}>
       {children}
     </CatalogContext.Provider>

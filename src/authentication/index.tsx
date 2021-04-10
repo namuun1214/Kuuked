@@ -40,7 +40,9 @@ export const AuthProvider = ({ children }) => {
 
   const signInWithPhoneNumber = async phoneNumber => {
     try {
+      console.log(phoneNumber, "auth")
       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+      console.log(confirmation, "confirm")
       setConfirm(confirmation);
     } catch (error) {
       console.log(error);

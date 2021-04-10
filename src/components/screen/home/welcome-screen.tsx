@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView } from 'react-native';
-import { HomeIllustration, KuukedLogo } from '../../../assets';
-import { Box, Button, Center, Margin, Stack, Text } from '../../index';
+import { HomeIllustration } from '../../../assets';
+import { Button, Margin, Stack, Text } from '../../index';
 import { Header } from '../../header';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Queue } from '../../layout';
-
+import { AuthContext } from '../../../authentication';
 const WelcomeScreen = () => {
   const navigation = useNavigation();
+  const { user } = useContext(AuthContext);
+  const { phoneNumber } = user || {};
   const gotoRegistration = () => {
-    navigation.navigate(NavigationRoutes.MainRoot);
+    if (phoneNumber) {
+      navigation.navigate(NavigationRoutes.MainRoot);
+    } else {
+      navigation.navigate(NavigationRoutes.PhoneNumberRegistrationScreen);
+    }
   };
   return (
     <SafeAreaView>

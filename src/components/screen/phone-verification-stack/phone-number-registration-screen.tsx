@@ -35,10 +35,13 @@ export const PhoneNumberRegistrationScreen = ({ navigation }) => {
   const [isFocused, setIsFocused] = useState(false);
   const verifyPhone = async () => {
     if (!isValidPhone) {
+
       return;
     }
     setLoading(true);
     try {
+
+    console.log(phonenumber);
       await signInWithPhoneNumber(`+976${phonenumber}`);
       navigation.navigate(NavigationRoutes.CodeVerificationScreen, {
         phonenumber,

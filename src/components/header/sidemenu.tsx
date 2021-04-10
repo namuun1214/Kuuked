@@ -27,7 +27,7 @@ const SideMenuItems = ({ text }) => {
 export const SideMenu: FC = () => {
   return (
     <SafeAreaView>
-      <Header withBack={true} headerText={null} />
+      <Header withBack={true} headerText="" />
       <Overlay
         width={useWindowDimensions().width / 2}
         height={useWindowDimensions().height}

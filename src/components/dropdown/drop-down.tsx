@@ -27,17 +27,17 @@ export const DropDown = {
     return (
       <View style={{ zIndex: 99 }}>
         <AnimatedFadeInView visible={visible}>
-          {/* <Overlay zIndex={99}> */}
-          <Background width={width || 120}>
-            <Border
-              radius="large"
-              backgroundRole="light"
-              role="primary"
-              {...props}>
-              <Padding size={[5, 3, 3, 3]}>{children}</Padding>
-            </Border>
-          </Background>
-          {/* </Overlay> */}
+          <Overlay zIndex={99} left={0}>
+            <Background width={width || 120}>
+              <Border
+                radius="large"
+                backgroundRole="light"
+                role="primary"
+                {...props}>
+                <Padding size={[5, 3, 3, 3]}>{children}</Padding>
+              </Border>
+            </Background>
+          </Overlay>
         </AnimatedFadeInView>
       </View>
     );

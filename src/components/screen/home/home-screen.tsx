@@ -7,6 +7,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Center, Padding } from '../../layout';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { CatalogContext } from '../category/categoryProvider';
+import { AuthContext } from '../../../authentication';
 const window = Dimensions.get('window');
 
 const DailyRoutine = props => {
@@ -40,15 +41,16 @@ const DailyRoutine = props => {
 };
 
 const HomeScreen = () => {
-  // const { uid } = useUserUID();
+  const { signOut, user } = useContext(AuthContext);
   const navigation = useNavigation();
   const { catalog: categoryData } = useContext(CatalogContext);
+  categoryData && console.log(categoryData, 'mhn');
   const gotoCategoryScreen = () => {
     navigation.navigate(NavigationRoutes.SelectCategoryScreen);
   };
   return (
-    <SafeAreaView>
-      <Header withBack={true} headerText="Нүүр хуудас" />
+    <SafeAreaView style={{ flex: 1 }}>
+      <Header withBack={false} headerText="Нүүр хуудас" />
       <ScrollView>
         <Margin size={[2, 3, 0, 3]}>
           <Stack size={3}>
@@ -72,6 +74,17 @@ const HomeScreen = () => {
               onPress={gotoCategoryScreen}
               textRole="light">
               Категори Сонгох
+            </Button>
+            <Button
+              backgroundRole="info"
+              radius="xmedium"
+              size={[4, 0, 4, 0]}
+              onPress={() => {
+                signOut();
+                navigation.navigate(NavigationRoutes.WelcomeScreen);
+              }}
+              textRole="light">
+              Logout {user?.phoneNumber}
             </Button>
           </Stack>
         </Margin>

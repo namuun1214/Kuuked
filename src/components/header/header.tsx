@@ -15,13 +15,7 @@ export const Header = ({ withBack = false, headerText = '', menu = true }) => {
   const goBack = () => {
     navigation.goBack();
   };
-
   const [menuClicked, setMenuClicked] = useState(false);
-
-  const drawerStyles = {
-    drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
-    main: { paddingLeft: 3 },
-  };
   return (
     <Border backgroundRole="info">
       <Padding size={[2, 0, 2, 2]}>
@@ -32,10 +26,10 @@ export const Header = ({ withBack = false, headerText = '', menu = true }) => {
               alignItems="center"
               justifyContent={menu ? 'space-between' : 'flex-start'}>
               <TouchableOpacity onPress={goBack}>
-                <BackArrowIcon width={'10'} height={'40'} role="tertiary" />
+                <BackArrowIcon width={'10'} height={'40'} role="primary" />
               </TouchableOpacity>
               {headerText && (
-                <Text role="tertiary" type="primaryBody1" textAlign="center">
+                <Text role="primary" type="primaryBody1" textAlign="center">
                   {headerText}
                 </Text>
               )}
@@ -50,12 +44,21 @@ export const Header = ({ withBack = false, headerText = '', menu = true }) => {
             </Queue>
           )}
           {!withBack && (
-            <Queue>
+            <Queue justifyContent="space-between">
               <Center>
                 <KuukedLogoWhite width={80} height={40} />
               </Center>
+              {menu && (
+                <TouchableOpacity
+                  onPress={() => {
+                    setMenuClicked(!menuClicked);
+                  }}>
+                  <MenuIcon />
+                </TouchableOpacity>
+              )}
             </Queue>
           )}
+          {menuClicked && navigation.navigate(NavigationRoutes.SideMenu)}
         </Margin>
       </Padding>
     </Border>
