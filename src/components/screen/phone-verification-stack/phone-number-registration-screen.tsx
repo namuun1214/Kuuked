@@ -22,7 +22,6 @@ import {
 import { PhoneVerificationIllustration } from '../../../assets';
 import { AuthContext } from '../../../authentication';
 import { Header } from '../../header';
-import { Queue } from '../../layout';
 
 import { NavigationRoutes } from '../../navigation/navigation-param';
 

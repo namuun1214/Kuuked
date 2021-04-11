@@ -13,6 +13,8 @@ import { Center, Overlay, Padding } from '../layout';
 import { Border } from './border';
 
 type InputType = {
+  height?: number | string;
+  width?: number | string;
   success?: boolean;
   error?: boolean;
   multiline?: boolean;
@@ -88,6 +90,7 @@ export const MaskedInput = props => {
 
 export const Input: FC<InputType & BorderType> = props => {
   const {
+    width,
     success,
     error,
     size,
@@ -109,7 +112,7 @@ export const Input: FC<InputType & BorderType> = props => {
       textAlign: alignment,
       alignItems: 'center',
       justifyContent: 'center',
-      width: rightIcon || leftIcon ? '90%' : '100%',
+      width: width || '90%',
     },
   });
 
