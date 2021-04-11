@@ -8,6 +8,7 @@ import { Center, Padding } from '../../layout';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { CatalogContext } from '../category/categoryProvider';
 import { AuthContext } from '../../../authentication';
+import { NewsList } from '../news/news-list-screen';
 const window = Dimensions.get('window');
 
 const DailyRoutine = props => {
@@ -42,9 +43,9 @@ const DailyRoutine = props => {
 
 const HomeScreen = () => {
   const { signOut, user } = useContext(AuthContext);
+  const { setCatalog } = useContext(CatalogContext);
   const navigation = useNavigation();
   const { catalog: categoryData } = useContext(CatalogContext);
-  categoryData && console.log(categoryData, 'mhn');
   const gotoCategoryScreen = () => {
     navigation.navigate(NavigationRoutes.SelectCategoryScreen);
   };
@@ -67,6 +68,9 @@ const HomeScreen = () => {
                   return <DailyRoutine url={image} name={name} />;
                 })}
             </View>
+            <Border topWidth="medium" role="info" />
+            <Text type="headline3">Шинэ мэдээ</Text>
+            <NewsList limit={3} />
             <Button
               backgroundRole="info"
               radius="xmedium"
@@ -81,6 +85,7 @@ const HomeScreen = () => {
               size={[4, 0, 4, 0]}
               onPress={() => {
                 signOut();
+                setCatalog(null);
                 navigation.navigate(NavigationRoutes.WelcomeScreen);
               }}
               textRole="light">

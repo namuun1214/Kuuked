@@ -95,7 +95,7 @@ type StackType = {
   maxWidth?: number | string;
   zIndex?: number;
 };
-type TextAlign = 'center' | 'left' | 'right';
+type TextAlign = 'center' | 'left' | 'right' | 'justify';
 type TextType = {
   type?:
     | 'title'

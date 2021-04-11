@@ -15,6 +15,8 @@ import HealthScreen from '../screen/health/health-screen';
 import HomeScreen from '../screen/home/home-screen';
 import { SplashScreen } from '../screen/home/splash-screen';
 import WelcomeScreen from '../screen/home/welcome-screen';
+import NewsScreen from '../screen/news/news-list-screen';
+import NewsDetailScreen from '../screen/news/newsDetailScreen';
 import {
   CodeVerificationScreen,
   PhoneNumberRegistrationScreen,
@@ -128,6 +130,16 @@ export const HomeStack = () => (
       name={NavigationRoutes.CommonErrorDialog}
       component={CommonErrorDialog}
       options={{ headerShown: false, gestureEnabled: false }}
+    />
+    <RootStack.Screen
+      name={NavigationRoutes.NewsScreen}
+      component={NewsScreen}
+      options={{ headerShown: false, gestureEnabled: true }}
+    />
+    <RootStack.Screen
+      name={NavigationRoutes.NewsDetailScreen}
+      component={NewsDetailScreen}
+      options={{ headerShown: false, gestureEnabled: true }}
     />
   </RootStack.Navigator>
 );

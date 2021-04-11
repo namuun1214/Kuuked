@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import React, { FC } from 'react';
 import { TouchableOpacity, useWindowDimensions } from 'react-native';
 import { Queue } from '..';
@@ -11,11 +12,13 @@ import {
 import { AnimatedFadeInView } from '../animated';
 import { Border, Text } from '../core';
 import { Overlay, Padding, Stack } from '../layout';
-const SideMenuItems = ({ text, icon }) => {
+import { NavigationRoutes } from '../navigation/navigation-param';
+const SideMenuItems = ({ text, icon, navigate }) => {
+  const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={() => {
-        console.log('asd');
+        navigation.navigate(NavigationRoutes[navigate]);
       }}>
       <Border bottomWidth="xlight" role="primary">
         <Padding size={[3, 3, 3, 2]}>
@@ -40,11 +43,31 @@ export const SideMenu: FC = () => {
         right={0}
         role="info">
         <Stack size={3}>
-          <SideMenuItems text="Профайл" icon={<ProfileIcon />} />
-          <SideMenuItems text="Мэдээлэл" icon={<NewsIcon />} />
-          <SideMenuItems text="Яаралтай тусламж" icon={<EmergencyIcon />} />
-          <SideMenuItems text="Дурсамж" icon={<MemoryIcon />} />
-          <SideMenuItems text="Хадгалсан" icon={<HeartIcon />} />
+          <SideMenuItems
+            text="Профайл"
+            icon={<ProfileIcon />}
+            navigate={'NewsScreen'}
+          />
+          <SideMenuItems
+            text="Мэдээлэл"
+            icon={<NewsIcon />}
+            navigate={'NewsScreen'}
+          />
+          <SideMenuItems
+            text="Яаралтай тусламж"
+            icon={<EmergencyIcon />}
+            navigate={'NewsScreen'}
+          />
+          <SideMenuItems
+            text="Дурсамж"
+            icon={<MemoryIcon />}
+            navigate={'NewsScreen'}
+          />
+          <SideMenuItems
+            text="Хадгалсан"
+            icon={<HeartIcon />}
+            navigate={'NewsScreen'}
+          />
         </Stack>
       </Overlay>
     </AnimatedFadeInView>

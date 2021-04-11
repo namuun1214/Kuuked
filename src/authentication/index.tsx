@@ -1,5 +1,6 @@
 import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { CatalogContext } from '../components/screen/category/categoryProvider';
 export const USERS_HOME = 'users';
 
 export const AuthContext = createContext<{
@@ -40,9 +41,7 @@ export const AuthProvider = ({ children }) => {
 
   const signInWithPhoneNumber = async phoneNumber => {
     try {
-      console.log(phoneNumber, "auth")
       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-      console.log(confirmation, "confirm")
       setConfirm(confirmation);
     } catch (error) {
       console.log(error);

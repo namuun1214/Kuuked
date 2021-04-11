@@ -12,6 +12,8 @@ export enum NavigationRoutes {
   WelcomeScreen = 'WelcomeScreen',
   SelectCategoryScreen = 'SelectCategoryScreen',
   SideMenu = 'SideMenu',
+  NewsScreen = 'NewsScreen',
+  NewsDetailScreen = 'NewsDetailScreen',
 }
 export interface NavigationPayload<T> {
   props: T;
@@ -30,4 +32,6 @@ export type NavigatorParamList = {
   [NavigationRoutes.WelcomeScreen]: NavigationPayload<any>;
   [NavigationRoutes.SelectCategoryScreen]: NavigationPayload<any>;
   [NavigationRoutes.SideMenu]: NavigationPayload<any>;
+  [NavigationRoutes.NewsScreen]: NavigationPayload<any>;
+  [NavigationRoutes.NewsDetailScreen]: NavigationPayload<any>;
 };

@@ -24,7 +24,7 @@ type InputType = {
   leftIcon?: React.Component | Element;
   rightIcon?: React.Component | JSX.Element;
   placeholder?: string;
-  // onChangeText?: (string) => void;
+  onChangeText?: (string) => void;
   onFocus?: () => void;
   loading?: boolean;
   keyboardType?: 'numeric' | 'default';
@@ -98,7 +98,7 @@ export const Input: FC<InputType & BorderType> = props => {
     leftIcon,
     rightIcon,
     borderRole,
-    // onChangeText,
+    onChangeText,
     loading,
     defaultValue,
   } = props;
@@ -118,7 +118,7 @@ export const Input: FC<InputType & BorderType> = props => {
 
   const onChange = text => {
     setValue(text);
-    // onChangeText && onChangeText(text);
+    onChangeText && onChangeText(text);
   };
   return (
     <TouchableOpacity

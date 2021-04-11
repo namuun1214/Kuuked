@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   Route,
   SafeAreaView,
   ScrollView,
@@ -18,14 +17,18 @@ import {
   Text,
 } from '../../index';
 import { Header } from '../../header';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Border, Input, MaskedInput } from '../../core';
 import { DropDown } from '../../dropdown';
 import { CatalogContext } from '../category/categoryProvider';
 import _ from 'lodash';
 import { AddImageIcon } from '../../../assets';
-import { Center } from '../../layout';
+import { SuccessPopUp } from '../../pop-up';
+import { useFirestoreCollection } from '../../../firebase';
+import { USERS_HOME, useUserUID } from '../../../authentication';
+import { NavigationRoutes } from '../../navigation/navigation-param';
+import { delay } from '../../../utils';
 const MemoryLog = () => {
   const articles = [
     'Шинэ зүйл сурлаа',
@@ -103,24 +106,71 @@ const MemoryLog = () => {
   );
 };
 const RoutineLog = ({ name }) => {
+  const navigation = useNavigation();
+  const uid = useUserUID();
+  const { createRecord } = useFirestoreCollection([USERS_HOME, uid, 'routine']);
+  const [newRoutine, setNewRoutine] = useState({
+    catalog: '',
+    startTime: {},
+    endTime: {},
+    size: '',
+    measurement: '',
+    note: '',
+  });
+  const [startTime, setStartTime] = useState({
+    hour: '',
+    minute: '',
+    am: true,
+  });
+  const [endTime, setEndTime] = useState({
+    hour: '',
+    minute: '',
+    am: true,
+  });
+  const [selectedName, setSelectedName] = useState(name);
   const measurementTypes = ['мл', 'гр'];
   const [selectedMeasurement, setSelectedMeasurement] = useState('мл');
+  const [validateInput, setValidateInput] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [isDone, setDone] = useState(false);
+  const saveRoutine = async () => {
+    setNewRoutine({
+      ...newRoutine,
+      measurement: selectedMeasurement,
+      catalog: selectedName,
+      startTime: startTime,
+      endTime: endTime,
+    });
+    if (newRoutine.catalog === '' || newRoutine.startTime === '') {
+      setValidateInput(true);
+      return;
+    }
+    setLoading(true);
+    await createRecord(newRoutine);
+    setLoading(false);
+    setDone(true);
+    await delay(1500);
+    navigation.navigate(NavigationRoutes.Home);
+  };
   return (
     <View style={{ flexDirection: 'column' }}>
-      <CategorySelect name={name} />
+      <CategorySelect
+        selectedName={selectedName}
+        setSelectedName={setSelectedName}
+      />
       <Spacer horizontal={true} size={5} />
       <Stack size={2}>
         <Text type="secondaryBody1" role="tertiary">
           Эхэлсэн цаг
         </Text>
-        <TimePicker />
+        <TimePicker time={startTime} setTime={setStartTime} />
       </Stack>
       <Spacer horizontal={true} size={5} />
       <Stack size={2}>
         <Text type="secondaryBody1" role="tertiary">
           Дууссан цаг
         </Text>
-        <TimePicker />
+        <TimePicker time={endTime} setTime={setEndTime} />
       </Stack>
       <Spacer horizontal={true} size={5} />
       <Stack size={2}>
@@ -135,6 +185,9 @@ const RoutineLog = ({ name }) => {
             size={Platform.OS === 'ios' ? [4, 0, 4, 4] : [2, 0, 2, 4]}
             role="info"
             keyboardType="numeric"
+            onChangeText={text => {
+              setNewRoutine({ ...newRoutine, size: text });
+            }}
           />
 
           <DropDown.Provider>
@@ -172,20 +225,26 @@ const RoutineLog = ({ name }) => {
           backgroundRole="light"
           size={Platform.OS === 'ios' ? [4, 0, 4, 4] : [2, 0, 2, 4]}
           role="info"
+          onChangeText={text => {
+            setNewRoutine({ ...newRoutine, note: text });
+          }}
         />
       </Stack>
       <Spacer horizontal={true} size={5} />
+      {validateInput && <Text role="error">Мэдээлэл дутуу байна</Text>}
       <Button
         backgroundRole="success"
         radius="xlarge"
         size={[4, 7, 4, 7]}
-        textRole="light">
+        textRole="light"
+        onPress={saveRoutine}>
         Бүртгэх
       </Button>
+      {isDone && <SuccessPopUp />}
     </View>
   );
 };
-const TimePicker = () => {
+const TimePicker = ({ time, setTime }) => {
   const [startTime, setStartTime] = useState('AM');
   return (
     <Queue size={5} justifyContent="space-between" alignItems="center">
@@ -198,6 +257,9 @@ const TimePicker = () => {
           role="info"
           mask="00"
           keyboardType="numeric"
+          onChangeText={value => {
+            setTime({ ...time, hour: value });
+          }}
         />
         <Margin size={[0, 0, 0, 5]}>
           <Text type="secondaryBody1" role="tertiary">
@@ -213,16 +275,21 @@ const TimePicker = () => {
         role="info"
         mask="00"
         keyboardType="numeric"
+        onChangeText={value => {
+          setTime({ ...time, minute: value });
+        }}
       />
 
       <DropDown.Provider>
-        <DropDown.Trigger width={90}>{startTime}</DropDown.Trigger>
+        <DropDown.Trigger width={90}>{time.am ? 'AM' : 'PM'}</DropDown.Trigger>
         <DropDown.Content width={90}>
           <TouchableOpacity
             onPress={() => {
-              startTime === 'AM' ? setStartTime('PM') : setStartTime('AM');
+              time.am === true
+                ? setTime({ ...time, am: false })
+                : setTime({ ...time, am: true });
             }}>
-            {startTime === 'AM' ? (
+            {time.am === true ? (
               <Text role="tertiary">PM</Text>
             ) : (
               <Text role="tertiary">AM</Text>
@@ -233,9 +300,9 @@ const TimePicker = () => {
     </Queue>
   );
 };
-const CategorySelect = ({ name }) => {
+const CategorySelect = ({ selectedName, setSelectedName }) => {
   const { catalog: categoryData } = useContext(CatalogContext);
-  const [selectedName, setSelectedName] = useState(name);
+
   return (
     <DropDown.Provider>
       <DropDown.Trigger width={340}>{selectedName}</DropDown.Trigger>

@@ -24,6 +24,7 @@ export const colors = {
   lightGreen2: '#E7F3E4',
   lightCyan: '#DEF6FC',
   lightYellow: '#FDE7B1',
+  paragraph: '#474747',
 };
 
 const mapRoleToText = {
@@ -34,6 +35,7 @@ const mapRoleToText = {
   error: 'red',
   secondary: 'carbon',
   tertiary: 'tertiary',
+  paragraph: 'paragraph',
 };
 
 const mapRoleToBackground = {

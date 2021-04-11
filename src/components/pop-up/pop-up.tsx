@@ -20,7 +20,7 @@ export const PopUp = ({ children }) => {
       <View style={styles.scrim}>
         <AnimatedFadeInView visible={true}>
           <Stack maxWidth={Dimensions.get('window').width / 1.2}>
-            <Border backgroundRole="primary" radius="large">
+            <Border backgroundRole="light" radius="large">
               <Margin size={[4, 4, 4, 4]}>{children}</Margin>
             </Border>
           </Stack>

@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
 import React, { useContext, useEffect } from 'react';
 import { SafeAreaView } from 'react-native';
-import { TickIconInBubble } from '../../../assets';
+import { CorrectIcon } from '../../../assets';
 import { Center, Stack, Text } from '../..';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { delay } from '../../../utils';
@@ -29,7 +29,7 @@ export const PhoneRegistrationSuccessScreen = () => {
       <Center flex={1}>
         <Stack size={6}>
           <Center>
-            <TickIconInBubble />
+            <CorrectIcon />
           </Center>
           <Stack size={4} width="100%">
             <Text textAlign="center" role="info">

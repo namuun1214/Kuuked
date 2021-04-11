@@ -48,6 +48,13 @@ export const useFirestoreCollection = location => {
       .doc(`${path}/${id}`)
       .set({ ...data }, { merge: true });
   };
+  const getData = async (type, typeName) => {
+    let queryData = await firestore()
+      .collection(`${path}`)
+      .where(`'${type}'`, '==', `'${typeName}'`)
+      .get();
+    return queryData;
+  };
 
   return {
     createRecord,
@@ -56,6 +63,7 @@ export const useFirestoreCollection = location => {
     loading,
     setLimit,
     limit,
+    getData,
   };
 };
 
