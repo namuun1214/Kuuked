@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Dimensions, Pressable, SafeAreaView, View } from 'react-native';
 import { Border, Button, Margin, RemoteImage, Stack, Text } from '../../index';
 import { Header } from '../../header';
@@ -10,6 +10,8 @@ import { CatalogContext } from './categoryProvider';
 import { useNavigation } from '@react-navigation/core';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { CorrectIcon } from '../../../assets';
+import { delay } from '../../../utils';
+import { SuccessPopUp } from '../../pop-up';
 
 const window = Dimensions.get('window');
 const DailyRoutine = (props: {
@@ -48,6 +50,7 @@ export default () => {
   const navigation = useNavigation();
   let { data, loading } = useFirestoreCollection(['catalog']);
   const { catalog, setCatalog, save } = useContext(CatalogContext);
+  const [isDone, setDone] = useState(false);
   const isSelected = (item: any) => _.some(catalog, item);
   const addCatalog = newCatalog => {
     if (isSelected(newCatalog)) {
@@ -58,8 +61,10 @@ export default () => {
       return _.uniq([...catalog, newCatalog]);
     });
   };
-  const saveCatalog = () => {
+  const saveCatalog = async () => {
     save();
+    setDone(true);
+    await delay(1500);
     navigation.navigate(NavigationRoutes.Home);
   };
   return (
@@ -107,6 +112,7 @@ export default () => {
               Сонгох
             </Button>
           </Stack>
+          {isDone && <SuccessPopUp />}
         </Margin>
       </ScrollView>
     </SafeAreaView>

@@ -40,7 +40,6 @@ const MemoryLog = () => {
   const [selectedArticles, setSelectedArticles] = useState(['']);
   const isSelected = name => _.indexOf(selectedArticles, name) > -1;
   const addArticle = newArticle => {
-    console.log(isSelected(newArticle));
     if (isSelected(newArticle)) {
       setSelectedArticles(_.without(selectedArticles, newArticle));
       return;
@@ -250,7 +249,7 @@ const TimePicker = ({ time, setTime }) => {
     <Queue size={5} justifyContent="space-between" alignItems="center">
       <Queue justifyContent="space-between" alignItems="center">
         <MaskedInput
-          width={15}
+          width={20}
           radius="large"
           backgroundRole="light"
           size={Platform.OS === 'ios' ? [3, 6, 3, 6] : [2, 0, 2, 4]}
@@ -268,7 +267,7 @@ const TimePicker = ({ time, setTime }) => {
         </Margin>
       </Queue>
       <MaskedInput
-        width={15}
+        width={20}
         radius="large"
         backgroundRole="light"
         size={Platform.OS === 'ios' ? [3, 6, 3, 6] : [2, 0, 2, 4]}

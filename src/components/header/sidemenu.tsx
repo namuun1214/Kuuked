@@ -3,6 +3,8 @@ import React, { FC } from 'react';
 import { TouchableOpacity, useWindowDimensions } from 'react-native';
 import { Queue } from '..';
 import {
+  ChartIcon,
+  ChatIcon,
   EmergencyIcon,
   HeartIcon,
   MemoryIcon,
@@ -56,7 +58,7 @@ export const SideMenu: FC = () => {
           <SideMenuItems
             text="Яаралтай тусламж"
             icon={<EmergencyIcon />}
-            navigate={'NewsScreen'}
+            navigate={'EmergencyListScreen'}
           />
           <SideMenuItems
             text="Дурсамж"
@@ -66,6 +68,11 @@ export const SideMenu: FC = () => {
           <SideMenuItems
             text="Хадгалсан"
             icon={<HeartIcon />}
+            navigate={'NewsScreen'}
+          />
+          <SideMenuItems
+            text="Үр дүн"
+            icon={<ChartIcon />}
             navigate={'NewsScreen'}
           />
         </Stack>
