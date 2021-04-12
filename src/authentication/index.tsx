@@ -38,7 +38,6 @@ export const AuthProvider = ({ children }) => {
       setUser(user);
     });
   }, []);
-
   const signInWithPhoneNumber = async phoneNumber => {
     try {
       const confirmation = await auth().signInWithPhoneNumber(phoneNumber);

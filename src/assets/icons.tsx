@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Pressable } from 'react-native-gesture-handler';
 import Svg, {
   Circle,
   ClipPath,
@@ -255,9 +255,9 @@ export const CalendarIcon = props => {
 export const PlusIconInCircle = props => {
   const { onPress } = props;
   return (
-    <TouchableOpacity onPress={onPress}>
+    <Pressable onPress={onPress}>
       <RawPlusIconInCircle {...props} />
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

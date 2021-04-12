@@ -46,7 +46,9 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>Privacy – Camera Usage Description</key>
+	<string></string>
+	<key>Privacy – Photo Library Additions Usage Description</key>
 	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

@@ -1,6 +1,5 @@
 import React, { FC, useState, useContext } from 'react';
-import { StyleSheet, Text as RawText } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Pressable, StyleSheet, Text as RawText } from 'react-native';
 import { mapRoleToTextColor } from '../theme';
 import '../types';
 import { fibonacci } from '../../utils';
@@ -79,7 +78,7 @@ export const CopyText: FC<TextType> = props => {
     Clipboard.setString(`${children}`);
   };
   return (
-    <TouchableOpacity onPress={copy}>
+    <Pressable onPress={copy}>
       <Border lineWidth="light" role="light" radius="xmedium">
         <Padding size={[3, 3, 3, 3]}>
           <Text {...props} />
@@ -90,7 +89,7 @@ export const CopyText: FC<TextType> = props => {
           </Overlay>
         </Padding>
       </Border>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 export const Text = ({
@@ -134,8 +133,8 @@ export const InteractiveText = ({
   ...props
 }: TextType & { onPress?: () => void }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <Pressable onPress={onPress}>
       <Text {...props}>{children}</Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };

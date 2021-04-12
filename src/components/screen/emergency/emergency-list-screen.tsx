@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Linking, View } from 'react-native';
+import { Linking, Pressable, View } from 'react-native';
 import { Button, Margin, Stack, Text } from '../../index';
 import { Border, RemoteImage } from '../../core';
 import _ from 'lodash';
@@ -7,8 +7,7 @@ import { PhoneIcon } from '../../../assets';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from '../../header';
 import { useFirestoreCollection } from '../../../firebase';
-import { Queue } from '../../layout';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Padding, Queue } from '../../layout';
 import { useNavigation } from '@react-navigation/core';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 const HospitalInfo = ({ item }) => {
@@ -18,29 +17,31 @@ const HospitalInfo = ({ item }) => {
     Linking.openURL(`tel:+976${item?.phone}`);
   };
   const gotoDetail = (item: object | undefined) => {
-    navigation.navigate(NavigationRoutes.EmergencyListScreen, item);
+    navigation.navigate(NavigationRoutes.EmergencyDetailScreen, item);
   };
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={() => {
         gotoDetail(item);
       }}>
-      <Border topWidth="medium" bottomWidth="medium" role="info">
-        <Queue justifyContent="space-between" alignItems="center">
-          <RemoteImage url={item?.image} width={40} />
-          <Stack size={3}>
-            <Text type="primaryBody1">{item?.name}</Text>
-            <Text type="paragraph">{item?.address}</Text>
-          </Stack>
-          <TouchableOpacity
-            onPress={() => {
-              onCallPhone();
-            }}>
-            <PhoneIcon />
-          </TouchableOpacity>
-        </Queue>
+      <Border topWidth="medium" bottomWidth="medium" role="secondary">
+        <Padding size={[3, 2, 3, 2]}>
+          <Queue justifyContent="space-between" alignItems="center">
+            <RemoteImage url={item?.image} width={40} />
+            <Stack size={3}>
+              <Text type="primaryBody1">{item?.name}</Text>
+              <Text type="paragraph">{item?.address}</Text>
+            </Stack>
+            <Pressable
+              onPress={() => {
+                onCallPhone();
+              }}>
+              <PhoneIcon />
+            </Pressable>
+          </Queue>
+        </Padding>
       </Border>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 export const EmergencyListScreen = () => {

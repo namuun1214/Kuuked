@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { FC } from 'react';
-import { TouchableOpacity, useWindowDimensions } from 'react-native';
+import { Pressable, useWindowDimensions } from 'react-native';
 import { Queue } from '..';
 import {
   ChartIcon,
@@ -18,7 +18,7 @@ import { NavigationRoutes } from '../navigation/navigation-param';
 const SideMenuItems = ({ text, icon, navigate }) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={() => {
         navigation.navigate(NavigationRoutes[navigate]);
       }}>
@@ -32,7 +32,7 @@ const SideMenuItems = ({ text, icon, navigate }) => {
           </Queue>
         </Padding>
       </Border>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 export const SideMenu: FC = () => {

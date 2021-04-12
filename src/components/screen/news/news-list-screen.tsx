@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Dimensions, Pressable, SafeAreaView } from 'react-native';
 import { Border, Margin, Stack, Text } from '../../index';
 import { Header } from '../../header';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -10,7 +10,7 @@ import { NavigationRoutes } from '../../navigation/navigation-param';
 import { useNavigation } from '@react-navigation/core';
 import _ from 'lodash';
 const window = Dimensions.get('window');
-export const NewsList = (limit: number | null | undefined) => {
+export const NewsList = (limit: number) => {
   const gotoDetail = (item: object | undefined) => {
     navigation.navigate(NavigationRoutes.NewsDetailScreen, item);
   };
@@ -19,9 +19,11 @@ export const NewsList = (limit: number | null | undefined) => {
   let newsList;
   //   const newsList = getData((type = 'type'), (typeName = 'Мэдээлэл'));
   // console.log(newsList, 'hah');
+  !limit && console.log('ee');
   if (limit != null) {
     newsList = _.slice(data, 0, 3);
   } else {
+    console.log(limit, 'aanhan');
     newsList = data;
   }
   return (
@@ -35,8 +37,9 @@ export const NewsList = (limit: number | null | undefined) => {
             article: any[];
           }) => {
             return (
-              <TouchableOpacity
+              <Pressable
                 onPress={() => {
+                  console.log('dad');
                   gotoDetail(item);
                 }}>
                 <Queue justifyContent="space-between">
@@ -78,7 +81,7 @@ export const NewsList = (limit: number | null | undefined) => {
                     </Queue>
                   </Stack>
                 </Queue>
-              </TouchableOpacity>
+              </Pressable>
             );
           },
         )}
@@ -104,7 +107,7 @@ const RecipeList = () => {
             limit: string | number | JSX.Element | undefined;
           }) => {
             return (
-              <TouchableOpacity
+              <Pressable
                 onPress={() => {
                   gotoDetail(item);
                 }}>
@@ -140,7 +143,7 @@ const RecipeList = () => {
                     </Queue>
                   </Stack>
                 </Queue>
-              </TouchableOpacity>
+              </Pressable>
             );
           },
         )}
@@ -156,7 +159,7 @@ const NewsScreen = () => {
       <Margin size={[5, 5, 5, 5]}>
         <Stack size={5}>
           <Queue justifyContent="space-between">
-            <TouchableOpacity
+            <Pressable
               onPress={() => {
                 setNewsClicked(!isNewsClicked);
                 setRecipeClicked(isNewsClicked);
@@ -172,8 +175,8 @@ const NewsScreen = () => {
                   </Text>
                 </Padding>
               </Border>
-            </TouchableOpacity>
-            <TouchableOpacity
+            </Pressable>
+            <Pressable
               onPress={() => {
                 setRecipeClicked(!isRecipeClicked);
                 setNewsClicked(isRecipeClicked);
@@ -189,10 +192,10 @@ const NewsScreen = () => {
                   </Text>
                 </Padding>
               </Border>
-            </TouchableOpacity>
+            </Pressable>
           </Queue>
           <ScrollView>
-            {isNewsClicked ? <NewsList limit={null} /> : <RecipeList />}
+            {isNewsClicked ? <NewsList /> : <RecipeList />}
           </ScrollView>
         </Stack>
       </Margin>

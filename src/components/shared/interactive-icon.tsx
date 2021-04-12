@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Pressable } from 'react-native-gesture-handler';
 
 type InteractiveIconType = {
   icon?: any;
@@ -9,5 +9,5 @@ type InteractiveIconType = {
 
 export const InteractiveIcon: FC<InteractiveIconType> = props => {
   const { icon } = props;
-  return <TouchableOpacity {...props}>{icon}</TouchableOpacity>;
+  return <Pressable {...props}>{icon}</Pressable>;
 };

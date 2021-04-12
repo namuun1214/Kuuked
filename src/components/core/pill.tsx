@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ActivityIndicator, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Pressable } from 'react-native';
 import { Padding } from '../layout';
 import { Border } from './border';
 import { Text } from './text';
@@ -16,7 +16,7 @@ export const Pill: FC<PillType> = props => {
   const { onPress, children, loading, flat, textAlign } = props;
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <Pressable onPress={onPress}>
       <Border
         radius="large"
         backgroundRole={(!flat && 'success') || 'transparent'}>
@@ -32,6 +32,6 @@ export const Pill: FC<PillType> = props => {
           )}
         </Padding>
       </Border>
-    </TouchableOpacity>
+    </Pressable>
   );
 };

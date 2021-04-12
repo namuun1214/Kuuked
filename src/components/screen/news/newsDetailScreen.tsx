@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Dimensions,
   SafeAreaView,
-  TouchableOpacity,
+  Pressable,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -40,13 +40,13 @@ const NewsDetailScreen = () => {
               <Text type="secondaryBody1" textAlign="left">
                 {item?.title}
               </Text>
-              <TouchableOpacity
+              <Pressable
                 onPress={() => {
                   console.log(saved);
                   setSaved(!saved);
                 }}>
                 <SaveIcon saved={saved} />
-              </TouchableOpacity>
+              </Pressable>
             </Queue>
             <Queue justifyContent="space-between" alignItems="center">
               <Text role="tertiary">{item?.author || 'Эзэнгүй мэдээ'}</Text>

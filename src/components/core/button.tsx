@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Pressable } from 'react-native';
 import { AnimatedFadeInView, Spinner } from '../animated';
 import { Overlay, Padding } from '../layout';
 import { Center } from '../layout/center';
@@ -49,7 +49,7 @@ export const Button: FC<ButtonType> = props => {
   } = props;
 
   return (
-    <TouchableOpacity
+    <Pressable
       style={{
         opacity: disabled ? 0.4 : 1,
       }}
@@ -79,7 +79,7 @@ export const Button: FC<ButtonType> = props => {
           </AnimatedFadeInView>
         </Overlay>
       </Border>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

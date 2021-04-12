@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
-import { View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Pressable, View } from 'react-native';
+import { Pressabe } from 'react-native-gesture-handler';
 import { ArrowDownIcon } from '../../assets/icons';
 import { AnimatedFadeInView } from '../animated';
 import { Border, Text } from '../core';
@@ -48,7 +48,7 @@ export const DropDown = {
     const { children, width } = props;
     const { visible, setVisible } = useContext(DropDownContext);
     return (
-      <TouchableOpacity onPress={() => setVisible(!visible)}>
+      <Pressable onPress={() => setVisible(!visible)}>
         <Background width={width || 120}>
           <Border
             radius="large"
@@ -65,7 +65,7 @@ export const DropDown = {
             </Padding>
           </Border>
         </Background>
-      </TouchableOpacity>
+      </Pressable>
     );
   },
 };

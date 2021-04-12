@@ -3,10 +3,10 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Platform,
+  Pressable,
   StyleSheet,
   TextInput,
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CheckboxMarkIcon } from '../../assets/icons';
 import { AnimatedFadeInView } from '../animated';
 import { Center, Overlay, Padding } from '../layout';
@@ -121,7 +121,7 @@ export const Input: FC<InputType & BorderType> = props => {
     onChangeText && onChangeText(text);
   };
   return (
-    <TouchableOpacity
+    <Pressable
       onPress={() => {
         inputElement.current.focus();
       }}>
@@ -171,6 +171,6 @@ export const Input: FC<InputType & BorderType> = props => {
           </AnimatedFadeInView>
         </Overlay>
       </Border>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
