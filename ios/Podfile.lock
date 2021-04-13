@@ -641,6 +641,8 @@ PODS:
     - React-perflogger (= 0.64.0)
   - RNCClipboard (1.5.1):
     - React-Core
+  - RNDateTimePicker (3.4.3):
+    - React-Core
   - RNFastImage (8.3.4):
     - React-Core
     - SDWebImage (~> 5.8)
@@ -759,6 +761,7 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCClipboard (from `../node_modules/@react-native-community/clipboard`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
@@ -869,6 +872,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCClipboard:
     :path: "../node_modules/@react-native-community/clipboard"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
   RNFBApp:
@@ -951,6 +956,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: cad74a1eaa53ee6e7a3620231939d8fe2c6afcf0
   ReactCommon: cfe2b7fd20e0dbd2d1185cd7d8f99633fbc5ff05
   RNCClipboard: 41d8d918092ae8e676f18adada19104fa3e68495
+  RNDateTimePicker: d943800c936fb01c352fcfb70439550d2cb57092
   RNFastImage: d4870d58f5936111c56218dbd7fcfc18e65b58ff
   RNFBApp: 83ad65d0405113d945839d6bed319a12a010f652
   RNFBAuth: 046d5b0cd4a6f5547865f5b7d94c5487321f8d63
@@ -965,6 +971,6 @@ SPEC CHECKSUMS:
   Yoga: 8c8436d4171c87504c648ae23b1d81242bdf3bbf
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 1e34d84573b6c1f0832afca56c5fd8529e8dc07f
+PODFILE CHECKSUM: af3be26d719767807d5da2eb697c2ada76e8ab0a
 
 COCOAPODS: 1.10.1

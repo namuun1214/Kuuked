@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Dimensions,
   SafeAreaView,
   Pressable,
   useWindowDimensions,
@@ -8,21 +7,42 @@ import {
 } from 'react-native';
 import { Border, Margin, Stack, Text } from '../../index';
 import { Header } from '../../header';
-import { Center, Overlay, Padding, Queue } from '../../layout';
-import { useFirestoreCollection } from '../../../firebase';
+import { Center, Queue } from '../../layout';
 import { RemoteImage } from '../../core';
-import { NavigationRoutes } from '../../navigation/navigation-param';
-import { useNavigation, useRoute } from '@react-navigation/core';
+import { useRoute } from '@react-navigation/core';
 import { Route } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { CardIcon, ItemizeIcon, SaveIcon } from '../../../assets';
+import { ItemizeIcon, SaveIcon } from '../../../assets';
 import moment from 'moment';
+import { useFirestoreCollection } from '../../../firebase';
+import { USERS_HOME, useUserUID } from '../../../authentication';
+import { SuccessPopUp } from '../../pop-up';
+import { delay } from '../../../utils';
 
 const NewsDetailScreen = () => {
   const window = useWindowDimensions().width;
   const router = useRoute<Route<string, any>>();
-  const item = router.params || {};
-  const [saved, setSaved] = useState(false);
+  const { item, isSaved } = router.params || {};
+  console.log(item);
+  const isRecipe = item?.ingredient;
+  const [saved, setSaved] = useState();
+  const uid = useUserUID();
+  const { createRecord } = useFirestoreCollection([
+    USERS_HOME,
+    uid,
+    isRecipe ? 'savedRecipes' : 'savedNews',
+  ]);
+  const [isDone, setDone] = useState(false);
+  useEffect(async () => {
+    if (saved) {
+      createRecord(item);
+      setDone(true);
+      await delay(1000);
+      setDone(false);
+    } else {
+      console.log('ustgalaa');
+    }
+  }, [saved]);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header withBack={true} headerText="Мэдээ мэдээлэл" />
@@ -42,10 +62,9 @@ const NewsDetailScreen = () => {
               </Text>
               <Pressable
                 onPress={() => {
-                  console.log(saved);
                   setSaved(!saved);
                 }}>
-                <SaveIcon saved={saved} />
+                {!!!isSaved && <SaveIcon saved={saved} />}
               </Pressable>
             </Queue>
             <Queue justifyContent="space-between" alignItems="center">
@@ -59,9 +78,9 @@ const NewsDetailScreen = () => {
             </Queue>
 
             <Border topWidth="medium" role="info" />
-            {item?.ingredient && <Text>Орц</Text>}
-            {item?.ingredient &&
-              item?.ingredient.map(a => {
+            {isRecipe && <Text>Орц</Text>}
+            {isRecipe &&
+              isRecipe.map(a => {
                 return (
                   <Queue justifyContent="flex-start">
                     <ItemizeIcon />
@@ -69,13 +88,14 @@ const NewsDetailScreen = () => {
                   </Queue>
                 );
               })}
-            {item?.ingredient && <Text>Хийх арга</Text>}
+            {isRecipe && <Text>Хийх арга</Text>}
             <Text textAlign="justify" type="paragraph" role="paragraph">
               {item?.content}
             </Text>
           </Stack>
         </Margin>
       </ScrollView>
+      {isDone && <SuccessPopUp description="Амжилттай хадгалагдлаа" />}
     </SafeAreaView>
   );
 };

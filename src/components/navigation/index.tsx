@@ -11,6 +11,7 @@ import { CommonErrorDialog, ResendCodeDialog } from '../dialog';
 import { SideMenu } from '../header/sidemenu';
 import SelectCategoryScreen from '../screen/category/select-category-screen';
 import DailyScreen from '../screen/daily/daily-screen';
+import { MemoryListScreen } from '../screen/daily/memory-list-screen';
 import EmergencyDetailScreen from '../screen/emergency/emergency-detail-screen';
 import { EmergencyListScreen } from '../screen/emergency/emergency-list-screen';
 import HealthScreen from '../screen/health/health-screen';
@@ -162,6 +163,12 @@ export const HomeStack = () => (
     <RootStack.Screen
       name={NavigationRoutes.EmergencyDetailScreen}
       component={EmergencyDetailScreen}
+      options={{ headerShown: false, gestureEnabled: true }}
+    />
+
+    <RootStack.Screen
+      name={NavigationRoutes.MemoryListScreen}
+      component={MemoryListScreen}
       options={{ headerShown: false, gestureEnabled: true }}
     />
   </RootStack.Navigator>

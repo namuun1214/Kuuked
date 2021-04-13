@@ -95,6 +95,7 @@ export const Input: FC<InputType & BorderType> = props => {
     error,
     size,
     alignment,
+    placeholder,
     leftIcon,
     rightIcon,
     borderRole,

@@ -76,7 +76,8 @@ export const PermissionProvider = ({ children }) => {
           Alert.alert(response.errorMessage);
           return;
         }
-        setFilePath(_.uniq([...filePath, response]));
+        _.pullAll(filePath, null);
+        setFilePath(_.concat(filePath, response));
       });
     }
   };
@@ -89,8 +90,6 @@ export const PermissionProvider = ({ children }) => {
       quality: 1,
     };
     launchImageLibrary(options, response => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         Alert.alert('User cancelled camera picker');
         return;
@@ -104,8 +103,8 @@ export const PermissionProvider = ({ children }) => {
         Alert.alert(response.errorMessage);
         return;
       }
-      setFilePath(_.uniq([...filePath, response]));
-      console.log(filePath);
+      _.pullAll(filePath, null);
+      setFilePath(_.concat(filePath, response));
     });
   };
   return (

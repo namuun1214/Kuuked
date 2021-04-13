@@ -7,13 +7,17 @@ import { Center, Stack, Text } from '../..';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { delay } from '../../../utils';
 import LottieView from 'lottie-react-native';
-import { AuthContext } from '../../../authentication';
+import { AuthContext, USERS_HOME, useUserUID } from '../../../authentication';
+import { useFirestoreDocument } from '../../../firebase';
 
 export const PhoneRegistrationSuccessScreen = () => {
+  const uid = useUserUID();
+  const { data: babyInfo } = useFirestoreDocument([USERS_HOME, uid]);
   const { navigate } = useNavigation();
   const { user } = useContext(AuthContext);
   const waitAndNavigate = _.debounce(async () => {
     await delay(3000);
+    if (_.isEmpty(babyInfo)) navigate(NavigationRoutes.BabyInfoScreen);
     navigate(NavigationRoutes.MainRoot);
   }, 300);
   useEffect(() => {

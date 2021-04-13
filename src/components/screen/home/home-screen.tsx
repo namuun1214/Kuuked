@@ -70,7 +70,7 @@ const HomeScreen = () => {
             </View>
             <Border topWidth="medium" role="info" />
             <Text type="headline3">Шинэ мэдээ</Text>
-            <NewsList limit={3} />
+            <NewsList limit={3} isSaved={false} />
             <Button
               backgroundRole="info"
               radius="xmedium"

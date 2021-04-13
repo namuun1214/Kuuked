@@ -17,10 +17,13 @@ import { Overlay, Padding, Stack } from '../layout';
 import { NavigationRoutes } from '../navigation/navigation-param';
 const SideMenuItems = ({ text, icon, navigate }) => {
   const navigation = useNavigation();
+  const isSaved = true;
   return (
     <Pressable
       onPress={() => {
-        navigation.navigate(NavigationRoutes[navigate]);
+        navigate === 'SavedScreen'
+          ? navigation.navigate(NavigationRoutes.NewsScreen, { isSaved })
+          : navigation.navigate(NavigationRoutes[navigate]);
       }}>
       <Border bottomWidth="xlight" role="primary">
         <Padding size={[3, 3, 3, 2]}>
@@ -48,7 +51,7 @@ export const SideMenu: FC = () => {
           <SideMenuItems
             text="Профайл"
             icon={<ProfileIcon />}
-            navigate={'NewsScreen'}
+            navigate={'BabyInfoScreen'}
           />
           <SideMenuItems
             text="Мэдээлэл"
@@ -63,12 +66,12 @@ export const SideMenu: FC = () => {
           <SideMenuItems
             text="Дурсамж"
             icon={<MemoryIcon />}
-            navigate={'NewsScreen'}
+            navigate={'MemoryListScreen'}
           />
           <SideMenuItems
             text="Хадгалсан"
             icon={<HeartIcon />}
-            navigate={'NewsScreen'}
+            navigate={'SavedScreen'}
           />
           <SideMenuItems
             text="Үр дүн"

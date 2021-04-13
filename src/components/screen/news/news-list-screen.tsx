@@ -3,27 +3,28 @@ import { Dimensions, Pressable, SafeAreaView } from 'react-native';
 import { Border, Margin, Stack, Text } from '../../index';
 import { Header } from '../../header';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Overlay, Padding, Queue } from '../../layout';
+import { Padding, Queue } from '../../layout';
 import { useFirestoreCollection } from '../../../firebase';
 import { RemoteImage } from '../../core';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { useNavigation } from '@react-navigation/core';
 import _ from 'lodash';
+import { Route, useRoute } from '@react-navigation/native';
+import { USERS_HOME, useUserUID } from '../../../authentication';
 const window = Dimensions.get('window');
-export const NewsList = (limit: number) => {
+export const NewsList = ({ limit, isSaved }) => {
   const gotoDetail = (item: object | undefined) => {
-    navigation.navigate(NavigationRoutes.NewsDetailScreen, item);
+    navigation.navigate(NavigationRoutes.NewsDetailScreen, { item, isSaved });
   };
+  const uid = useUserUID();
   const navigation = useNavigation();
-  const { getData, data } = useFirestoreCollection(['news']);
+  const { data } = useFirestoreCollection(
+    isSaved ? [USERS_HOME, uid, 'savedNews'] : ['news'],
+  );
   let newsList;
-  //   const newsList = getData((type = 'type'), (typeName = 'Мэдээлэл'));
-  // console.log(newsList, 'hah');
-  !limit && console.log('ee');
-  if (limit != null) {
-    newsList = _.slice(data, 0, 3);
+  if (limit) {
+    newsList = _.slice(data, 0, limit);
   } else {
-    console.log(limit, 'aanhan');
     newsList = data;
   }
   return (
@@ -88,14 +89,15 @@ export const NewsList = (limit: number) => {
     </Stack>
   );
 };
-const RecipeList = () => {
+const RecipeList = ({ isSaved }) => {
   const gotoDetail = (item: object | undefined) => {
-    navigation.navigate(NavigationRoutes.NewsDetailScreen, item);
+    navigation.navigate(NavigationRoutes.NewsDetailScreen, { item, isSaved });
   };
+  const uid = useUserUID();
   const navigation = useNavigation();
-  const { data: recipeList } = useFirestoreCollection(['recipes']);
-  //   const recipeList = getData((type = 'type'), (typeName = 'Мэдээлэл'));
-  //   console.log(recipeList, 'hah');
+  const { data: recipeList } = useFirestoreCollection(
+    isSaved ? [USERS_HOME, uid, 'savedRecipes'] : ['recipes'],
+  );
   return (
     <Stack size={5}>
       {recipeList &&
@@ -151,11 +153,16 @@ const RecipeList = () => {
   );
 };
 const NewsScreen = () => {
+  const router = useRoute<Route<string, any>>();
+  const { isSaved } = router?.params || {};
   const [isNewsClicked, setNewsClicked] = useState(true);
   const [isRecipeClicked, setRecipeClicked] = useState(false);
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header withBack={true} headerText="Мэдээ мэдээлэл" />
+      <Header
+        withBack={true}
+        headerText={isSaved ? 'Хадгалсан' : 'Мэдээ мэдээлэл'}
+      />
       <Margin size={[5, 5, 5, 5]}>
         <Stack size={5}>
           <Queue justifyContent="space-between">
@@ -195,7 +202,11 @@ const NewsScreen = () => {
             </Pressable>
           </Queue>
           <ScrollView>
-            {isNewsClicked ? <NewsList /> : <RecipeList />}
+            {isNewsClicked ? (
+              <NewsList isSaved={isSaved} />
+            ) : (
+              <RecipeList isSaved={isSaved} />
+            )}
           </ScrollView>
         </Stack>
       </Margin>

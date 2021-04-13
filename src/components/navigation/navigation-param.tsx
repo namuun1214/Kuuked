@@ -18,6 +18,7 @@ export enum NavigationRoutes {
   EmergencyListScreen = 'EmergencyListScreen',
   EmergencyDetailScreen = 'EmergencyDetailScreen',
   ProfileScreen = 'ProfileScreen',
+  MemoryListScreen = 'MemoryListScreen',
 }
 export interface NavigationPayload<T> {
   props: T;
@@ -42,4 +43,5 @@ export type NavigatorParamList = {
   [NavigationRoutes.EmergencyListScreen]: NavigationPayload<any>;
   [NavigationRoutes.EmergencyDetailScreen]: NavigationPayload<any>;
   [NavigationRoutes.ProfileScreen]: NavigationPayload<any>;
+  [NavigationRoutes.MemoryListScreen]: NavigationPayload<any>;
 };

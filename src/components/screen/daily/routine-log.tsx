@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Platform, Pressable, View } from 'react-native';
 import {
   Border,
@@ -21,7 +21,7 @@ import { delay } from '../../../utils';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { CatalogContext } from '../category/categoryProvider';
 
-const TimePicker = ({ time, setTime }) => {
+export const TimePicker = ({ time, setTime }) => {
   return (
     <Queue size={5} justifyContent="space-between" alignItems="center">
       <Queue justifyContent="space-between" alignItems="center">
@@ -131,7 +131,7 @@ export const RoutineLog = ({ name }) => {
   const [validateInput, setValidateInput] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isDone, setDone] = useState(false);
-  const saveRoutine = async () => {
+  useEffect(() => {
     setNewRoutine({
       ...newRoutine,
       measurement: selectedMeasurement,
@@ -139,7 +139,9 @@ export const RoutineLog = ({ name }) => {
       startTime: startTime,
       endTime: endTime,
     });
-    if (newRoutine.catalog === '' || newRoutine.startTime === '') {
+  }, [endTime, selectedMeasurement, selectedName, startTime]);
+  const saveRoutine = async () => {
+    if (newRoutine.catalog === '') {
       setValidateInput(true);
       return;
     }
