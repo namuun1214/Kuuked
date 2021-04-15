@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
 import { Margin, Queue } from '..';
 import { KuukedLogoWhite } from '../../assets';
@@ -64,7 +64,7 @@ export const Header = ({ withBack = false, headerText = '', menu = true }) => {
           </Margin>
         </Padding>
       </Border>
-      {menuClicked && <SideMenu />}
+      {menuClicked && <SideMenu setMenuClicked={setMenuClicked} />}
     </>
   );
 };

@@ -15,6 +15,7 @@ import { MemoryListScreen } from '../screen/daily/memory-list-screen';
 import EmergencyDetailScreen from '../screen/emergency/emergency-detail-screen';
 import { EmergencyListScreen } from '../screen/emergency/emergency-list-screen';
 import HealthScreen from '../screen/health/health-screen';
+import SurgeryScreen from '../screen/health/health-screen';
 import { BabyInfoScreen } from '../screen/home/baby-info-screen';
 import HomeScreen from '../screen/home/home-screen';
 import { SplashScreen } from '../screen/home/splash-screen';
@@ -178,7 +179,7 @@ export const HealthStack = () => (
     <RootStack.Screen
       name={NavigationRoutes.HealthScreen}
       component={HealthScreen}
-      options={{ headerShown: false, gestureEnabled: false }}
+      options={{ headerShown: false, gestureEnabled: true }}
     />
   </RootStack.Navigator>
 );

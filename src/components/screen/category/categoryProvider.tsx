@@ -13,6 +13,9 @@ export const CategoryProvider = ({ children }) => {
     USERS_HOME,
     uid,
   ]);
+  useEffect(() => {
+    setCatalog(catalogList);
+  }, [uid, catalogList]);
   const save = async () => {
     await updateRecord({ catalog });
   };

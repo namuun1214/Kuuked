@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { FC } from 'react';
 import { Pressable, useWindowDimensions } from 'react-native';
+import { set } from 'react-native-reanimated';
 import { Queue } from '..';
 import {
   ChartIcon,
@@ -38,7 +39,8 @@ const SideMenuItems = ({ text, icon, navigate }) => {
     </Pressable>
   );
 };
-export const SideMenu: FC = () => {
+export const SideMenu: FC = ({ setMenuClicked }) => {
+  setMenuClicked(true);
   return (
     <AnimatedFadeInView visible={true}>
       <Overlay

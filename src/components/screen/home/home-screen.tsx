@@ -46,6 +46,7 @@ const HomeScreen = () => {
   const { setCatalog } = useContext(CatalogContext);
   const navigation = useNavigation();
   const { catalog: categoryData } = useContext(CatalogContext);
+  console.log(categoryData);
   const gotoCategoryScreen = () => {
     navigation.navigate(NavigationRoutes.SelectCategoryScreen);
   };
@@ -63,7 +64,7 @@ const HomeScreen = () => {
                 flexWrap: 'wrap',
               }}>
               {categoryData &&
-                categoryData.map(category => {
+                categoryData?.catalog.map(category => {
                   let { image, name } = category;
                   return <DailyRoutine url={image} name={name} />;
                 })}

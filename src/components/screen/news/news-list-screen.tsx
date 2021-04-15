@@ -34,7 +34,7 @@ export const NewsList = ({ limit, isSaved }) => {
           (item: {
             image: string | undefined;
             title: string | JSX.Element | JSX.Element[] | undefined;
-            content: string;
+            content: string[];
             article: any[];
           }) => {
             return (
@@ -52,7 +52,7 @@ export const NewsList = ({ limit, isSaved }) => {
                   <Stack size={3}>
                     <Text width={180}>{item?.title}</Text>
                     <Text width={180} role="tertiary">
-                      {item?.content.slice(0, 80)}
+                      {item?.content[0].slice(0, 80)}
                       {'...'}
                     </Text>
                     <Queue justifyContent="space-between">
@@ -122,7 +122,7 @@ const RecipeList = ({ isSaved }) => {
                   <Stack size={3}>
                     <Text width={180}>{item?.title}</Text>
                     <Text width={180} role="tertiary">
-                      {item?.content.slice(0, 80)}
+                      {item?.content[0].slice(0, 80)}
                       {'...'}
                     </Text>
                     <Queue justifyContent="space-between">

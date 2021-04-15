@@ -84,7 +84,7 @@ const CategorySelect = ({ selectedName, setSelectedName }) => {
       <DropDown.Trigger width={340}>{selectedName}</DropDown.Trigger>
       <DropDown.Content width={340}>
         <Stack size={4}>
-          {categoryData.map(item => {
+          {categoryData?.catalog.map(item => {
             return (
               <Border bottomWidth="xlight" role="secondary">
                 <Padding size={[0, 2, 2, 2]}>

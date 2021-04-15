@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { Border, Margin, Stack, Text } from '../../index';
 import { Header } from '../../header';
-import { Center, Queue } from '../../layout';
+import { Center, Queue, Spacer } from '../../layout';
 import { RemoteImage } from '../../core';
 import { useRoute } from '@react-navigation/core';
 import { Route } from '@react-navigation/native';
@@ -23,7 +23,6 @@ const NewsDetailScreen = () => {
   const window = useWindowDimensions().width;
   const router = useRoute<Route<string, any>>();
   const { item, isSaved } = router.params || {};
-  console.log(item);
   const isRecipe = item?.ingredient;
   const [saved, setSaved] = useState();
   const uid = useUserUID();
@@ -82,16 +81,22 @@ const NewsDetailScreen = () => {
             {isRecipe &&
               isRecipe.map(a => {
                 return (
-                  <Queue justifyContent="flex-start">
+                  <Queue>
                     <ItemizeIcon />
+                    <Spacer horizontal={false} size={3} />
                     <Text role="info">{a}</Text>
                   </Queue>
                 );
               })}
             {isRecipe && <Text>Хийх арга</Text>}
-            <Text textAlign="justify" type="paragraph" role="paragraph">
-              {item?.content}
-            </Text>
+            {item?.content &&
+              item?.content.map(value => {
+                return (
+                  <Text textAlign="justify" type="paragraph" role="paragraph">
+                    {value}
+                  </Text>
+                );
+              })}
           </Stack>
         </Margin>
       </ScrollView>
