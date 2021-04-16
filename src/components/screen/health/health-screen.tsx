@@ -7,6 +7,8 @@ import { Border } from '../../core';
 import _ from 'lodash';
 import { SymptomLog } from './symptom-log';
 import { SurgeryLog } from './surgery-log';
+import { SymptomList } from './symptom-list';
+import { SurgeryList } from './surgery-list-screen';
 const HealthScreen = () => {
   const [isSurgeryClicked, setSurgeryClicked] = useState(true);
   const [isSymptomClicked, setSymptomClicked] = useState(false);
@@ -53,8 +55,8 @@ const HealthScreen = () => {
           </Queue>
           <Padding bottom={11}>
             <ScrollView>
-              {isSymptomClicked && <SymptomLog />}
-              {isSurgeryClicked && <SurgeryLog />}
+              {isSymptomClicked && <SymptomList />}
+              {isSurgeryClicked && <SurgeryList />}
             </ScrollView>
           </Padding>
         </Stack>

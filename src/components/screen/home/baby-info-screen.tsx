@@ -18,6 +18,7 @@ import { delay } from '../../../utils';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { PermissionContext } from '../../../permission/photoPermission';
 import { ScrollView } from 'react-native-gesture-handler';
+import _ from 'lodash';
 const Picker = ({ data, setData }) => {
   const [date, setDate] = useState('2020-05-15');
   return (
@@ -88,7 +89,7 @@ export const BabyInfoScreen = () => {
     setLoading(false);
     setDone(true);
     await delay(1500);
-    navigation.navigate(NavigationRoutes.Home);
+    navigation.navigate(NavigationRoutes.SelectCategoryScreen);
   };
   const [isMaleCliked, setMaleClicked] = useState(true);
   const styles = StyleSheet.create({
@@ -101,20 +102,22 @@ export const BabyInfoScreen = () => {
 
   return (
     <SafeAreaView>
-      <Header withBack={true} headerText="Хүүхэд бүртгэл" />
+      <Header withBack={true} headerText="Хүүхэд бүртгэл" menu={false} />
       <ScrollView>
         <Margin size={[5, 5, 5, 5]}>
           <Stack size={5}>
-            <Center>
-              <Margin size={[3, 3, 3, 3]}>
-                <Circle size={200}>
-                  <Image
-                    source={{ uri: filePath[0]?.uri }}
-                    style={styles.imageStyle}
-                  />
-                </Circle>
-              </Margin>
-            </Center>
+            {!_.isEmpty(filePath) && (
+              <Center>
+                <Margin size={[3, 3, 3, 3]}>
+                  <Circle size={200}>
+                    <Image
+                      source={{ uri: filePath[0]?.uri }}
+                      style={styles.imageStyle}
+                    />
+                  </Circle>
+                </Margin>
+              </Center>
+            )}
             <Border role="info" radius="medium">
               <Button
                 radius="xlarge"

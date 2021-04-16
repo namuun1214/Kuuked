@@ -92,6 +92,11 @@ export const RootNavigationContainer = () => {
             options={{ headerShown: false, gestureEnabled: true }}
           />
           <RootStack.Screen
+            name={NavigationRoutes.SelectCategoryScreen}
+            component={SelectCategoryScreen}
+            options={{ headerShown: false, gestureEnabled: true }}
+          />
+          <RootStack.Screen
             name={NavigationRoutes.ResendCodeDialog}
             component={ResendCodeDialog}
             options={ModalScreenOptions}

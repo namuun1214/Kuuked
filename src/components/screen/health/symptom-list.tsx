@@ -8,7 +8,7 @@ import { Border, Button, Text } from '../../core';
 import { Padding, Queue, Stack } from '../../layout';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { SymptomLog } from './symptom-log';
-export const SurgeryList = () => {
+export const SymptomList = () => {
   const uid = useUserUID();
   const navigation = useNavigation();
   const { data } = useFirestoreCollection([USERS_HOME, uid, 'symptoms']);

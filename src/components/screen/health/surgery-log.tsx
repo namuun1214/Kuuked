@@ -7,13 +7,7 @@ import { DoctorCallIcon, DoctorIcon } from '../../../assets';
 import { PermissionContext } from '../../../permission/photoPermission';
 export const SurgeryLog = () => {
   const [date, setDate] = useState('2020-05-15');
-  const [data, setData] = useState({
-    date: '',
-    height: '',
-    width: '',
-    head: '',
-    symptom: '',
-  });
+  const [data, setData] = useState({});
   const styles = StyleSheet.create({
     imageStyle: {
       width: 100,
