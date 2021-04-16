@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Dimensions, Pressable, SafeAreaView, View } from 'react-native';
 import { Border, Button, Margin, RemoteImage, Stack, Text } from '../../index';
 import { Header } from '../../header';
@@ -48,24 +48,28 @@ const DailyRoutine = (props: {
 
 export default () => {
   const navigation = useNavigation();
-  let { data, loading } = useFirestoreCollection(['catalog']);
-  const { catalog, setCatalog, save } = useContext(CatalogContext);
+  let { data } = useFirestoreCollection(['catalog']);
+  const { save, catalog } = useContext(CatalogContext);
+  const [catalogList, setCatalogList] = useState([]);
   const [isDone, setDone] = useState(false);
-  const isSelected = (item: any) => _.some(catalog, item);
+  const isSelected = (item: any) => _.some(catalogList, item);
+  useEffect(() => {
+    setCatalogList(catalog);
+  }, [catalog]);
   const addCatalog = newCatalog => {
     if (isSelected(newCatalog)) {
-      setCatalog(_.without(catalog, newCatalog));
+      setCatalogList(_.without(catalogList, newCatalog));
       return;
     }
-    setCatalog(catalog => {
-      return _.uniq([...catalog, newCatalog]);
+    setCatalogList(catalogList => {
+      return _.uniq([...catalogList, newCatalog]);
     });
   };
   const saveCatalog = async () => {
-    save();
+    save(catalogList);
     setDone(true);
     await delay(1500);
-    navigation.navigate(NavigationRoutes.Home);
+    navigation.navigate(NavigationRoutes.MainRoot);
   };
   return (
     <SafeAreaView>

@@ -2,9 +2,8 @@ import React, { createContext, useEffect, useState } from 'react';
 import { useFirestoreDocument } from '../../../firebase';
 import { USERS_HOME, useUserUID } from '../../../authentication';
 export const CatalogContext = createContext({
-  save: () => {},
+  save: catalog => {},
   catalog: [{}],
-  setCatalog: (catalog: any) => {},
 });
 export const CategoryProvider = ({ children }) => {
   const [catalog, setCatalog] = useState([]);
@@ -14,16 +13,15 @@ export const CategoryProvider = ({ children }) => {
     uid,
   ]);
   useEffect(() => {
-    setCatalog(catalogList);
+    setCatalog(catalogList?.catalog || []);
   }, [uid, catalogList]);
-  const save = async () => {
+  const save = async catalog => {
     await updateRecord({ catalog });
   };
   return (
     <CatalogContext.Provider
       value={{
         catalog,
-        setCatalog,
         save,
       }}>
       {children}

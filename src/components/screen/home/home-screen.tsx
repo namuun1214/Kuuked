@@ -46,7 +46,6 @@ const HomeScreen = () => {
   const { setCatalog } = useContext(CatalogContext);
   const navigation = useNavigation();
   const { catalog: categoryData } = useContext(CatalogContext);
-  console.log(categoryData);
   const gotoCategoryScreen = () => {
     navigation.navigate(NavigationRoutes.SelectCategoryScreen);
   };
@@ -56,6 +55,7 @@ const HomeScreen = () => {
       <ScrollView>
         <Margin size={[2, 3, 0, 3]}>
           <Stack size={3}>
+            
             <Text type="headline3">Өдөр тутам</Text>
             <View
               style={{
@@ -64,7 +64,7 @@ const HomeScreen = () => {
                 flexWrap: 'wrap',
               }}>
               {categoryData &&
-                categoryData?.catalog.map(category => {
+                categoryData.map(category => {
                   let { image, name } = category;
                   return <DailyRoutine url={image} name={name} />;
                 })}
@@ -86,7 +86,6 @@ const HomeScreen = () => {
               size={[4, 0, 4, 0]}
               onPress={() => {
                 signOut();
-                setCatalog(null);
                 navigation.navigate(NavigationRoutes.WelcomeScreen);
               }}
               textRole="light">

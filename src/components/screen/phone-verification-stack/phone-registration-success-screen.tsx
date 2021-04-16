@@ -12,13 +12,18 @@ import { useFirestoreDocument } from '../../../firebase';
 
 export const PhoneRegistrationSuccessScreen = () => {
   const uid = useUserUID();
-  const { data: babyInfo } = useFirestoreDocument([USERS_HOME, uid]);
+  const { data: babyInfo, loading } = useFirestoreDocument([USERS_HOME, uid]);
   const { navigate } = useNavigation();
   const { user } = useContext(AuthContext);
+  useEffect(() => {
+    if (babyInfo && !_.has(babyInfo, 'babyInformation')) {
+      navigate(NavigationRoutes.BabyInfoScreen);
+    } else if (babyInfo && !_.has(babyInfo, 'catalog')) {
+      navigate(NavigationRoutes.SelectCategoryScreen);
+    } else if (babyInfo) navigate(NavigationRoutes.MainRoot);
+  }, [babyInfo]);
   const waitAndNavigate = _.debounce(async () => {
     await delay(3000);
-    if (_.isEmpty(babyInfo)) navigate(NavigationRoutes.BabyInfoScreen);
-    navigate(NavigationRoutes.MainRoot);
   }, 300);
   useEffect(() => {
     waitAndNavigate();

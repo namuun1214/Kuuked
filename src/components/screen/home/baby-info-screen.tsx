@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Header } from '../../header';
@@ -89,7 +89,11 @@ export const BabyInfoScreen = () => {
     setLoading(false);
     setDone(true);
     await delay(1500);
-    navigation.navigate(NavigationRoutes.SelectCategoryScreen);
+    if (babyInfo?.catalog) {
+      navigation.navigate(NavigationRoutes.Home);
+    } else {
+      navigation.navigate(NavigationRoutes.SelectCategoryScreen);
+    }
   };
   const [isMaleCliked, setMaleClicked] = useState(true);
   const styles = StyleSheet.create({
