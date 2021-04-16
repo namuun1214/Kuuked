@@ -28,7 +28,7 @@ export const MainRoot = () => {
         component={HomeStack}
         options={{
           tabBarLabel: 'Нүүр',
-          tabBarIcon: ({ color }) => <HomeIconBar color={color} />,
+          tabBarIcon: ({ tintColor }) => <HomeIconBar color={tintColor} />,
         }}
       />
       <Tab.Screen
@@ -36,7 +36,9 @@ export const MainRoot = () => {
         component={HealthStack}
         options={{
           tabBarLabel: 'Эрүүл мэнд',
-          tabBarIcon: ({ color }) => <HospitalIllustration color={color} />,
+          tabBarIcon: ({ tintColor }) => (
+            <HospitalIllustration color={tintColor} />
+          ),
         }}
       />
       <Tab.Screen
@@ -44,7 +46,9 @@ export const MainRoot = () => {
         component={DailyStack}
         options={{
           tabBarLabel: 'Өдөр тутам',
-          tabBarIcon: ({ color }) => <ClockIllustration color={color} />,
+          tabBarIcon: ({ tintColor }) => (
+            <ClockIllustration color={tintColor} />
+          ),
         }}
       />
     </Tab.Navigator>

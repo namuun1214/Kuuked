@@ -294,11 +294,10 @@ export const ClockIllustration = props => {
       viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      color={color}
       {...props}>
       <Path
         d="M20.13 16.845l-2.797-1.614V9.332a1.334 1.334 0 00-2.666 0V16a1.333 1.333 0 00.666 1.154l3.464 2a1.334 1.334 0 101.334-2.309zM16 2.667A13.333 13.333 0 1029.333 16 13.348 13.348 0 0016 2.666zm0 24A10.666 10.666 0 1126.667 16 10.68 10.68 0 0116 26.666z"
-        fill="#fff"
+        fill={color || '#fff'}
         opacity={0.6}
       />
     </Svg>

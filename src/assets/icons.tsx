@@ -1007,16 +1007,15 @@ export const ClockIcon = props => {
   const { height, width, color } = props;
   return (
     <Svg
-      width={width || 20}
-      height={height || 20}
-      viewBox="0 0 20 20"
-      // fill="#FFFFFF"
-      color={color}
+      width={32}
+      height={32}
+      viewBox="0 0 32 32"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}>
       <Path
-        d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16zm1-8.07V5a1 1 0 00-2 0v5.11a1 1 0 00.11.59l1.5 2.6a1.004 1.004 0 001.74-1L11 9.93z"
-        fill="#000"
+        d="M20.13 16.845l-2.797-1.614V9.333a1.333 1.333 0 10-2.666 0V16a1.333 1.333 0 00.666 1.155l3.464 2a1.332 1.332 0 001.961-1.5 1.33 1.33 0 00-.627-.81zM16 2.667A13.333 13.333 0 1029.333 16 13.347 13.347 0 0016 2.667zm0 24A10.667 10.667 0 1126.667 16 10.68 10.68 0 0116 26.667z"
+        fill={color || '#BDC3E5'}
       />
     </Svg>
   );
@@ -1227,13 +1226,12 @@ export const HomeIconBar = props => {
       width={32}
       height={32}
       viewBox="0 0 32 32"
-      fill="#FFFFFF"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      // color={color}
       {...props}>
       <Path
         d="M11.8 29.333a1 1 0 001-1v-8.412h6.4v8.412a1 1 0 001 1h6a1 1 0 001-1V16.784h2.155c.922 0 1.353-1.14.662-1.75L16.662 3.25a1 1 0 00-1.324 0L1.983 15.034c-.69.61-.26 1.75.662 1.75H4.8v11.55a1 1 0 001 1h6z"
-        fill="#fff"
+        fill={color || '#BDC3E5'}
       />
     </Svg>
   );

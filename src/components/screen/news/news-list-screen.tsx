@@ -28,65 +28,67 @@ export const NewsList = ({ limit, isSaved }) => {
     newsList = data;
   }
   return (
-    <Stack size={5}>
-      {newsList &&
-        newsList.map(
-          (item: {
-            image: string | undefined;
-            title: string | JSX.Element | JSX.Element[] | undefined;
-            content: string[];
-            article: any[];
-          }) => {
-            return (
-              <Pressable
-                onPress={() => {
-                  console.log('dad');
-                  gotoDetail(item);
-                }}>
-                <Queue justifyContent="space-between">
-                  <Padding size={[0, 4, 2, 0]}>
-                    <Border radius="medium">
-                      <RemoteImage url={item?.image} width={150} />
-                    </Border>
-                  </Padding>
-                  <Stack size={3}>
-                    <Text width={180}>{item?.title}</Text>
-                    <Text width={180} role="tertiary">
-                      {item?.content[0].slice(0, 80)}
-                      {'...'}
-                    </Text>
-                    <Queue justifyContent="space-between">
-                      {item?.article?.map(
-                        (
-                          a: string | JSX.Element | JSX.Element[] | undefined,
-                        ) => {
-                          return (
-                            <Border
-                              backgroundRole={
-                                a === 'Ээжүүдэд'
-                                  ? a === 'Зар суртчилгаа'
-                                    ? 'success'
-                                    : 'lightCyan'
-                                  : 'lightYellow'
-                              }
-                              radius="xlarge">
-                              <Padding size={[2, 3, 2, 3]}>
-                                <Text type="price" textAlign="center">
-                                  {a}
-                                </Text>
-                              </Padding>
-                            </Border>
-                          );
-                        },
-                      )}
-                    </Queue>
-                  </Stack>
-                </Queue>
-              </Pressable>
-            );
-          },
-        )}
-    </Stack>
+    <Margin size={[2, 2, 2, 2]}>
+      <Stack size={5}>
+        {newsList &&
+          newsList.map(
+            (item: {
+              image: string | undefined;
+              title: string | JSX.Element | JSX.Element[] | undefined;
+              content: string[];
+              article: any[];
+            }) => {
+              return (
+                <Pressable
+                  onPress={() => {
+                    console.log('dad');
+                    gotoDetail(item);
+                  }}>
+                  <Queue justifyContent="space-between">
+                    <Padding size={[0, 4, 2, 0]}>
+                      <Border radius="medium" lineWidth="thick">
+                        <RemoteImage url={item?.image} width={150} />
+                      </Border>
+                    </Padding>
+                    <Stack size={3}>
+                      <Text width={180}>{item?.title}</Text>
+                      <Text width={180} role="tertiary" type="tertiaryBody2">
+                        {item?.content[0].slice(0, 80)}
+                        {'...'}
+                      </Text>
+                      <Queue justifyContent="space-between">
+                        {item?.article?.map(
+                          (
+                            a: string | JSX.Element | JSX.Element[] | undefined,
+                          ) => {
+                            return (
+                              <Border
+                                backgroundRole={
+                                  a === 'Ээжүүдэд'
+                                    ? a === 'Зар суртчилгаа'
+                                      ? 'success'
+                                      : 'lightCyan'
+                                    : 'lightYellow'
+                                }
+                                radius="xlarge">
+                                <Padding size={[2, 3, 2, 3]}>
+                                  <Text type="price" textAlign="center">
+                                    {a}
+                                  </Text>
+                                </Padding>
+                              </Border>
+                            );
+                          },
+                        )}
+                      </Queue>
+                    </Stack>
+                  </Queue>
+                </Pressable>
+              );
+            },
+          )}
+      </Stack>
+    </Margin>
   );
 };
 const RecipeList = ({ isSaved }) => {
@@ -99,57 +101,59 @@ const RecipeList = ({ isSaved }) => {
     isSaved ? [USERS_HOME, uid, 'savedRecipes'] : ['recipes'],
   );
   return (
-    <Stack size={5}>
-      {recipeList &&
-        recipeList.map(
-          (item: {
-            image: string | undefined;
-            title: string | JSX.Element | JSX.Element[] | undefined;
-            content: string;
-            limit: string | number | JSX.Element | undefined;
-          }) => {
-            return (
-              <Pressable
-                onPress={() => {
-                  gotoDetail(item);
-                }}>
-                <Queue justifyContent="space-between">
-                  <Padding size={[0, 4, 2, 0]}>
-                    <Border radius="large">
-                      <RemoteImage url={item?.image} width={150} />
-                    </Border>
-                  </Padding>
-                  <Stack size={3}>
-                    <Text width={180}>{item?.title}</Text>
-                    <Text width={180} role="tertiary">
-                      {item?.content[0].slice(0, 80)}
-                      {'...'}
-                    </Text>
-                    <Queue justifyContent="space-between">
-                      <Border
-                        backgroundRole={
-                          item?.limit > 3
-                            ? item?.limit > 6
-                              ? 'success'
-                              : 'lightCyan'
-                            : 'lightYellow'
-                        }
-                        radius="xlarge">
-                        <Padding size={[2, 2, 2, 2]}>
-                          <Text type="price" textAlign="center">
-                            {item?.limit}
-                            {'+ сар'}
-                          </Text>
-                        </Padding>
+    <Margin size={[2, 2, 2, 2]}>
+      <Stack size={5}>
+        {recipeList &&
+          recipeList.map(
+            (item: {
+              image: string | undefined;
+              title: string | JSX.Element | JSX.Element[] | undefined;
+              content: string;
+              limit: string | number | JSX.Element | undefined;
+            }) => {
+              return (
+                <Pressable
+                  onPress={() => {
+                    gotoDetail(item);
+                  }}>
+                  <Queue justifyContent="space-between">
+                    <Padding size={[0, 4, 2, 0]}>
+                      <Border radius="medium" lineWidth="thick">
+                        <RemoteImage url={item?.image} width={150} />
                       </Border>
-                    </Queue>
-                  </Stack>
-                </Queue>
-              </Pressable>
-            );
-          },
-        )}
-    </Stack>
+                    </Padding>
+                    <Stack size={3}>
+                      <Text width={180}>{item?.title}</Text>
+                      <Text width={180} role="tertiary">
+                        {item?.content[0].slice(0, 80)}
+                        {'...'}
+                      </Text>
+                      <Queue justifyContent="space-between">
+                        <Border
+                          backgroundRole={
+                            item?.limit > 3
+                              ? item?.limit > 6
+                                ? 'success'
+                                : 'lightCyan'
+                              : 'lightYellow'
+                          }
+                          radius="xlarge">
+                          <Padding size={[2, 2, 2, 2]}>
+                            <Text type="price" textAlign="center">
+                              {item?.limit}
+                              {'+ сар'}
+                            </Text>
+                          </Padding>
+                        </Border>
+                      </Queue>
+                    </Stack>
+                  </Queue>
+                </Pressable>
+              );
+            },
+          )}
+      </Stack>
+    </Margin>
   );
 };
 const NewsScreen = () => {

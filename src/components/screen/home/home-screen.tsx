@@ -40,7 +40,7 @@ const DailyRoutine = props => {
               <Center>
                 <RemoteImage width={60} resizeMode="contain" url={url} />
               </Center>
-              <Text type="secondaryBody2" numberOfLines={2} textAlign="center">
+              <Text type="tertiaryBody2" numberOfLines={2} textAlign="center">
                 {name}
               </Text>
             </Stack>
@@ -68,7 +68,7 @@ const HomeScreen = () => {
           <Stack size={3}>
             <Border
               role="light"
-              lineWidth="thick"
+              lineWidth="light"
               radius="large"
               backgroundRole="yellow">
               <Padding size={[2, 2, 2, 2]}>
