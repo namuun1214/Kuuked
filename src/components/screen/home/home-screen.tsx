@@ -1,14 +1,24 @@
 import React, { useContext } from 'react';
-import { Dimensions, Pressable, SafeAreaView, View } from 'react-native';
+import {
+  Dimensions,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Border, Button, Margin, RemoteImage, Stack, Text } from '../../index';
 import { Header } from '../../header';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Center, Padding } from '../../layout';
+import { Center, Padding, Queue } from '../../layout';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { CatalogContext } from '../category/categoryProvider';
 import { AuthContext } from '../../../authentication';
 import { NewsList } from '../news/news-list-screen';
+import { UserContext } from './userProvider';
+import { Circle } from 'react-native-svg';
+import { Image } from 'react-native-animatable';
+import moment from 'moment';
 const window = Dimensions.get('window');
 
 const DailyRoutine = props => {
@@ -43,19 +53,42 @@ const DailyRoutine = props => {
 
 const HomeScreen = () => {
   const { signOut, user } = useContext(AuthContext);
-  const { setCatalog } = useContext(CatalogContext);
+  const { userInfo } = useContext(UserContext);
   const navigation = useNavigation();
   const { catalog: categoryData } = useContext(CatalogContext);
   const gotoCategoryScreen = () => {
     navigation.navigate(NavigationRoutes.SelectCategoryScreen);
   };
+  let bornDateMoment = moment(userInfo.bornDate, 'YYYY/MM/DD');
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header withBack={false} headerText="Нүүр хуудас" />
       <ScrollView>
         <Margin size={[2, 3, 0, 3]}>
           <Stack size={3}>
-            
+            <Border
+              role="light"
+              lineWidth="thick"
+              radius="large"
+              backgroundRole="yellow">
+              <Padding size={[2, 2, 2, 2]}>
+                <Queue justifyContent="space-around" alignItems="center">
+                  <Border radius="large">
+                    <RemoteImage
+                      url="https://firebasestorage.googleapis.com/v0/b/babytracker-c9194.appspot.com/o/newsImages%2Fnathan-dumlao-rUsi-dLgC_4-unsplash.jpg?alt=media&token=178ee742-375d-4597-b7cc-b1e81a8409ce"
+                      width={50}
+                    />
+                  </Border>
+                  <Text type="headline2" role="primary">
+                    {userInfo.name}
+                  </Text>
+                  <Text type="primaryBody2" role="primary">
+                    {moment().diff(bornDateMoment, 'months')}
+                    {' сартай'}
+                  </Text>
+                </Queue>
+              </Padding>
+            </Border>
             <Text type="headline3">Өдөр тутам</Text>
             <View
               style={{

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
 import { Margin, Queue } from '..';
 import { KuukedLogoWhite } from '../../assets';
@@ -7,16 +7,18 @@ import { Border, Text } from '../core';
 import { Center, Padding } from '../layout';
 import { useNavigation } from '@react-navigation/native';
 import { SideMenu } from './sidemenu';
+import { UserContext } from '../screen/home/userProvider';
 export const Header = ({ withBack = false, headerText = '', menu = true }) => {
   const navigation = useNavigation();
   const goBack = () => {
     navigation.goBack();
   };
+  const { isMenuClicked, setMenuClicked } = useContext(UserContext);
   const handleMenuClick = () => {
     // navigation.navigate(NavigationRoutes.SideMenu);
-    setMenuClicked(!menuClicked);
+    setMenuClicked(!isMenuClicked);
   };
-  const [menuClicked, setMenuClicked] = useState(false);
+
   return (
     <>
       <Border backgroundRole="info">
@@ -64,7 +66,7 @@ export const Header = ({ withBack = false, headerText = '', menu = true }) => {
           </Margin>
         </Padding>
       </Border>
-      {menuClicked && <SideMenu setMenuClicked={setMenuClicked} />}
+      {isMenuClicked && <SideMenu />}
     </>
   );
 };

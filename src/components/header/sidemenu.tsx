@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Pressable, useWindowDimensions } from 'react-native';
 import { set } from 'react-native-reanimated';
 import { Queue } from '..';
@@ -16,7 +16,9 @@ import { AnimatedFadeInView } from '../animated';
 import { Border, Text } from '../core';
 import { Overlay, Padding, Stack } from '../layout';
 import { NavigationRoutes } from '../navigation/navigation-param';
+import { UserContext } from '../screen/home/userProvider';
 const SideMenuItems = ({ text, icon, navigate }) => {
+  const { setMenuClicked } = useContext(UserContext);
   const navigation = useNavigation();
   const isSaved = true;
   return (
@@ -25,6 +27,7 @@ const SideMenuItems = ({ text, icon, navigate }) => {
         navigate === 'SavedScreen'
           ? navigation.navigate(NavigationRoutes.NewsScreen, { isSaved })
           : navigation.navigate(NavigationRoutes[navigate]);
+        setMenuClicked(false);
       }}>
       <Border bottomWidth="xlight" role="primary">
         <Padding size={[3, 3, 3, 2]}>
@@ -39,8 +42,7 @@ const SideMenuItems = ({ text, icon, navigate }) => {
     </Pressable>
   );
 };
-export const SideMenu: FC = ({ setMenuClicked }) => {
-  setMenuClicked(true);
+export const SideMenu: FC = () => {
   return (
     <AnimatedFadeInView visible={true}>
       <Overlay

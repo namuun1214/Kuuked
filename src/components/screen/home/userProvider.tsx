@@ -7,12 +7,12 @@ export const UserContext = createContext({
   userInfo: {},
 });
 export const UserProvider = ({ children }) => {
-  const [userInfo, setUserInfo] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
   const uid = useUserUID();
   const { data: userInfos } = useFirestoreDocument([USERS_HOME, uid]);
   const [isMenuClicked, setMenuClicked] = useState<boolean>(false);
   useEffect(() => {
-    setUserInfo(userInfos);
+    setUserInfo(userInfos?.babyInformation || {});
   }, [uid, userInfos]);
   return (
     <UserContext.Provider
