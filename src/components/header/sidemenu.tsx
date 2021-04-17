@@ -80,7 +80,7 @@ export const SideMenu: FC = () => {
           <SideMenuItems
             text="Үр дүн"
             icon={<ChartIcon />}
-            navigate={'NewsScreen'}
+            navigate={'GrowthScreen'}
           />
         </Stack>
       </Overlay>

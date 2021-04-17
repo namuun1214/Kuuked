@@ -20,7 +20,7 @@ export const colors = {
   grey4: '#AFAFAF',
   transparent: 'transparent',
   overlay: 'rgba(18,18,18,0.3)',
-  yellow: '#FEC63D',
+  yellow: '#FFC700',
   lightGreen2: '#E7F3E4',
   lightCyan: '#DEF6FC',
   lightYellow: '#FDE7B1',

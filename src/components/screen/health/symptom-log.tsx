@@ -25,7 +25,7 @@ export const SymptomLog = () => {
   const saveSymptom = async () => {
     await createRecord(data);
     setDone(true);
-    await delay(1000);
+    await delay(3000);
     navigation.navigate(NavigationRoutes.HealthScreen);
   };
   useEffect(() => {
@@ -46,36 +46,34 @@ export const SymptomLog = () => {
           <Text type="secondaryBody1" role="tertiary">
             Он сар өдөр
           </Text>
-          <Center>
-            <DatePicker
-              date={date}
-              mode="date"
-              placeholder="select date"
-              format="YYYY-MM-DD"
-              minDate="2016-05-01"
-              maxDate="2016-06-01"
-              confirmBtnText="Болсон"
-              cancelBtnText="Болих"
-              onDateChange={value => {
-                setDate(value);
-                setData({ ...data, date: value });
-              }}
-              customStyles={{
-                dateIcon: {
-                  position: 'absolute',
-                  left: 0,
-                  top: 4,
-                  marginLeft: 0,
-                },
-                dateInput: {
-                  marginLeft: 36,
-                  borderRadius: 5,
-                  backgroundColor: '#FFFFFF',
-                  borderColor: '#FFFFFF',
-                },
-              }}
-            />
-          </Center>
+          <DatePicker
+            date={date}
+            mode="date"
+            placeholder="select date"
+            format="YYYY-MM-DD"
+            minDate="2016-05-01"
+            maxDate="2016-06-01"
+            confirmBtnText="Болсон"
+            cancelBtnText="Болих"
+            onDateChange={value => {
+              setDate(value);
+              setData({ ...data, date: value });
+            }}
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0,
+              },
+              dateInput: {
+                marginLeft: 36,
+                borderRadius: 12,
+                backgroundColor: '#FFFFFF',
+                borderColor: '#FFFFFF',
+              },
+            }}
+          />
         </Stack>
         <Stack size={2}>
           <Text type="secondaryBody1" role="tertiary">

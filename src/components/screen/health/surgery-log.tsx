@@ -10,6 +10,7 @@ import { NavigationRoutes } from '../../navigation/navigation-param';
 import { USERS_HOME, useUserUID } from '../../../authentication';
 import { useFirestoreCollection } from '../../../firebase';
 import { DropDown } from '../../dropdown';
+import _ from 'lodash';
 export const SurgeryLog = () => {
   const [date, setDate] = useState('2020-05-15');
   const [data, setData] = useState({});
@@ -30,6 +31,7 @@ export const SurgeryLog = () => {
   useEffect(() => {
     setData({ ...data, symptom: selectedName });
   }, [selectedName]);
+
   const navigation = useNavigation();
   return (
     <Stack size={4}>
@@ -37,36 +39,34 @@ export const SurgeryLog = () => {
         <Text type="secondaryBody1" role="tertiary">
           Он сар өдөр
         </Text>
-        <Center>
-          <DatePicker
-            date={date}
-            mode="date"
-            placeholder="select date"
-            format="YYYY-MM-DD"
-            minDate="2016-05-01"
-            maxDate="2016-06-01"
-            confirmBtnText="Болсон"
-            cancelBtnText="Болих"
-            onDateChange={value => {
-              setDate(value);
-              setData({ ...data, date: value });
-            }}
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-              },
-              dateInput: {
-                marginLeft: 36,
-                borderRadius: 5,
-                backgroundColor: '#FFFFFF',
-                borderColor: '#FFFFFF',
-              },
-            }}
-          />
-        </Center>
+        <DatePicker
+          date={date}
+          mode="date"
+          placeholder="select date"
+          format="YYYY-MM-DD"
+          minDate="2016-05-01"
+          maxDate="2016-06-01"
+          confirmBtnText="Болсон"
+          cancelBtnText="Болих"
+          onDateChange={value => {
+            setDate(value);
+            setData({ ...data, date: value });
+          }}
+          customStyles={{
+            dateIcon: {
+              position: 'absolute',
+              left: 0,
+              top: 4,
+              marginLeft: 0,
+            },
+            dateInput: {
+              marginLeft: 36,
+              borderRadius: 12,
+              backgroundColor: '#FFFFFF',
+              borderColor: '#FFFFFF',
+            },
+          }}
+        />
       </Stack>
       <Queue size={3} justifyContent="space-between" alignItems="center">
         <Stack size={2}>
@@ -136,7 +136,7 @@ export const SurgeryLog = () => {
           <DropDown.Trigger width={340}>{selectedName}</DropDown.Trigger>
           <DropDown.Content width={340}>
             <Stack size={3}>
-              {symptomData &&
+              {!_.isEmpty(symptomData) ? (
                 symptomData.map(item => {
                   return (
                     <Border bottomWidth="xlight" role="secondary">
@@ -150,7 +150,10 @@ export const SurgeryLog = () => {
                       </Padding>
                     </Border>
                   );
-                })}
+                })
+              ) : (
+                <Text role="tertiary">Одоогоор бүртгэл байхгүй байна</Text>
+              )}
             </Stack>
           </DropDown.Content>
         </DropDown.Provider>
