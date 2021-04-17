@@ -18,12 +18,14 @@ import {
 import { useUserUID, USERS_HOME } from '../../../authentication';
 import { useFirestoreCollection } from '../../../firebase';
 import { delay } from '../../../utils';
+import { DropDownContext } from '../../dropdown';
+import { Overlay } from '../../layout';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { CatalogContext } from '../category/categoryProvider';
 
 export const TimePicker = ({ time, setTime }) => {
   return (
-    <Queue size={5} justifyContent="space-between" alignItems="center">
+    <Queue size={5} justifyContent="space-between">
       <Queue justifyContent="space-between" alignItems="center">
         <MaskedInput
           width={20}
@@ -78,7 +80,7 @@ export const TimePicker = ({ time, setTime }) => {
 };
 const CategorySelect = ({ selectedName, setSelectedName }) => {
   const { catalog: categoryData } = useContext(CatalogContext);
-
+  const { setVisible } = useContext(DropDownContext);
   return (
     <DropDown.Provider>
       <DropDown.Trigger width={340}>{selectedName}</DropDown.Trigger>
@@ -90,6 +92,7 @@ const CategorySelect = ({ selectedName, setSelectedName }) => {
                 <Padding size={[0, 2, 2, 2]}>
                   <Pressable
                     onPress={() => {
+                      setVisible(false);
                       setSelectedName(item.name);
                     }}>
                     <Text role="tertiary">{item.name}</Text>
@@ -173,11 +176,11 @@ export const RoutineLog = ({ name }) => {
         <TimePicker time={endTime} setTime={setEndTime} />
       </Stack>
       <Spacer horizontal={true} size={5} />
-      <Stack size={2}>
+      <View style={{ flexDirection: 'column' }}>
         <Text type="secondaryBody1" role="tertiary">
           Хэмжээ
         </Text>
-        <Queue size={3} justifyContent="space-between" alignItems="center">
+        <Queue size={3} justifyContent="space-between">
           <Input
             width={150}
             radius="large"
@@ -212,7 +215,7 @@ export const RoutineLog = ({ name }) => {
             </DropDown.Content>
           </DropDown.Provider>
         </Queue>
-      </Stack>
+      </View>
       <Spacer horizontal={true} size={5} />
       <Stack size={2}>
         <Text type="secondaryBody1" role="tertiary">

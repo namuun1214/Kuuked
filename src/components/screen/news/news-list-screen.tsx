@@ -41,7 +41,6 @@ export const NewsList = ({ limit, isSaved }) => {
               return (
                 <Pressable
                   onPress={() => {
-                    console.log('dad');
                     gotoDetail(item);
                   }}>
                   <Queue justifyContent="space-between">

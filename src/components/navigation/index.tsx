@@ -14,6 +14,8 @@ import DailyScreen from '../screen/daily/daily-screen';
 import { MemoryListScreen } from '../screen/daily/memory-list-screen';
 import EmergencyDetailScreen from '../screen/emergency/emergency-detail-screen';
 import { EmergencyListScreen } from '../screen/emergency/emergency-list-screen';
+import { HealthDetailScreen } from '../screen/health/health-detail-screen';
+import HealthLogScreen from '../screen/health/health-log-screen';
 import HealthScreen from '../screen/health/health-screen';
 import SurgeryScreen from '../screen/health/health-screen';
 import { BabyInfoScreen } from '../screen/home/baby-info-screen';
@@ -184,6 +186,16 @@ export const HealthStack = () => (
     <RootStack.Screen
       name={NavigationRoutes.HealthScreen}
       component={HealthScreen}
+      options={{ headerShown: false, gestureEnabled: true }}
+    />
+    <RootStack.Screen
+      name={NavigationRoutes.HealthLogScreen}
+      component={HealthLogScreen}
+      options={{ headerShown: false, gestureEnabled: true }}
+    />
+    <RootStack.Screen
+      name={NavigationRoutes.HealthDetailScreen}
+      component={HealthDetailScreen}
       options={{ headerShown: false, gestureEnabled: true }}
     />
   </RootStack.Navigator>

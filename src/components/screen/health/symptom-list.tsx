@@ -16,13 +16,10 @@ export const SymptomList = () => {
     <Stack size={3}>
       {data &&
         data.map(item => {
-          console.log(
-            moment.unix(item.createdAt.seconds).format('MM/DD/YYYY').toString(),
-          );
           return (
             <Pressable
               onPress={() => {
-                navigation.navigate(NavigationRoutes.HealthScreen);
+                navigation.navigate(NavigationRoutes.HealthDetailScreen, item);
               }}>
               <Border
                 radius="large"
@@ -50,9 +47,10 @@ export const SymptomList = () => {
         })}
       <Button
         radius="large"
+        textRole="light"
         backgroundRole="success"
         onPress={() => {
-          navigation.navigate(NavigationRoutes.HealthScreen);
+          navigation.navigate(NavigationRoutes.HealthLogScreen);
         }}>
         Шинээр бүртгэх
       </Button>

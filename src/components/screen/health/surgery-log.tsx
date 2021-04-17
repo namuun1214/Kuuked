@@ -1,21 +1,36 @@
-import React, { useContext, useState } from 'react';
-import { Button, Input, Text } from '../..';
-import { Center, Queue, Stack } from '../../layout';
+import React, { useContext, useEffect, useState } from 'react';
+import { Border, Button, Input, SuccessPopUp, Text } from '../..';
+import { Center, Overlay, Padding, Queue, Stack } from '../../layout';
 import DatePicker from 'react-native-datepicker';
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform, Pressable, View } from 'react-native';
 import { DoctorCallIcon, DoctorIcon } from '../../../assets';
 import { PermissionContext } from '../../../permission/photoPermission';
+import { useNavigation } from '@react-navigation/core';
+import { NavigationRoutes } from '../../navigation/navigation-param';
+import { USERS_HOME, useUserUID } from '../../../authentication';
+import { useFirestoreCollection } from '../../../firebase';
+import { DropDown } from '../../dropdown';
 export const SurgeryLog = () => {
   const [date, setDate] = useState('2020-05-15');
   const [data, setData] = useState({});
-  const styles = StyleSheet.create({
-    imageStyle: {
-      width: 100,
-      height: 100,
-      margin: 5,
-      borderRadius: 5,
-    },
-  });
+  const [isDone, setDone] = useState(false);
+  const uid = useUserUID();
+  const [selectedName, setSelectedName] = useState();
+  const { createRecord } = useFirestoreCollection([USERS_HOME, uid, 'surgery']);
+  const { data: symptomData } = useFirestoreCollection([
+    USERS_HOME,
+    uid,
+    'symptoms',
+  ]);
+  const saveSurgery = async () => {
+    await createRecord(data);
+    setDone(true);
+    navigation.navigate(NavigationRoutes.HealthScreen);
+  };
+  useEffect(() => {
+    setData({ ...data, symptom: selectedName });
+  }, [selectedName]);
+  const navigation = useNavigation();
   return (
     <Stack size={4}>
       <Stack size={2}>
@@ -113,22 +128,33 @@ export const SurgeryLog = () => {
           />
         </Stack>
       </Queue>
-      <Stack size={2}>
+      <View style={{ flexDirection: 'column' }}>
         <Text type="secondaryBody1" role="tertiary">
           Зовиур
         </Text>
-        <Input
-          height={80}
-          multiline={true}
-          radius="large"
-          backgroundRole="light"
-          size={Platform.OS === 'ios' ? [4, 0, 4, 4] : [2, 0, 2, 4]}
-          role="info"
-          onChangeText={value => {
-            setData({ ...data, symptom: value });
-          }}
-        />
-      </Stack>
+        <DropDown.Provider>
+          <DropDown.Trigger width={340}>{selectedName}</DropDown.Trigger>
+          <DropDown.Content width={340}>
+            <Stack size={3}>
+              {symptomData &&
+                symptomData.map(item => {
+                  return (
+                    <Border bottomWidth="xlight" role="secondary">
+                      <Padding size={[0, 2, 2, 2]}>
+                        <Pressable
+                          onPress={() => {
+                            setSelectedName(item.symptom);
+                          }}>
+                          <Text role="tertiary">{item.symptom}</Text>
+                        </Pressable>
+                      </Padding>
+                    </Border>
+                  );
+                })}
+            </Stack>
+          </DropDown.Content>
+        </DropDown.Provider>
+      </View>
       <Stack size={2}>
         <Text type="secondaryBody1" role="tertiary">
           Үзлэгийн тэмдэглэл
@@ -141,7 +167,7 @@ export const SurgeryLog = () => {
           size={Platform.OS === 'ios' ? [4, 0, 4, 4] : [2, 0, 2, 4]}
           role="info"
           onChangeText={value => {
-            // setNewMemory({ ...newMemory, note: value });
+            setData({ ...data, note: value });
           }}
         />
       </Stack>
@@ -157,7 +183,7 @@ export const SurgeryLog = () => {
           size={Platform.OS === 'ios' ? [4, 0, 4, 4] : [2, 0, 2, 4]}
           role="info"
           onChangeText={value => {
-            // setNewMemory({ ...newMemory, note: value });
+            setData({ ...data, treatment: value });
           }}
         />
       </Stack>
@@ -173,7 +199,7 @@ export const SurgeryLog = () => {
           size={Platform.OS === 'ios' ? [4, 0, 4, 4] : [2, 0, 2, 4]}
           role="info"
           onChangeText={value => {
-            // setNewMemory({ ...newMemory, note: value });
+            setData({ ...data, doctorName: value });
           }}
         />
         <Input
@@ -183,8 +209,9 @@ export const SurgeryLog = () => {
           backgroundRole="light"
           size={Platform.OS === 'ios' ? [4, 0, 4, 4] : [2, 0, 2, 4]}
           role="info"
+          keyboardType="numeric"
           onChangeText={value => {
-            // setNewMemory({ ...newMemory, note: value });
+            setData({ ...data, doctorPhone: value });
           }}
         />
       </Stack>
@@ -193,11 +220,12 @@ export const SurgeryLog = () => {
         radius="xlarge"
         size={[4, 7, 4, 7]}
         textRole="light"
-        // onPress={saveRoutine}
-      >
+        onPress={() => {
+          saveSurgery();
+        }}>
         Бүртгэх
       </Button>
-      {/* {isDone && <SuccessPopUp />} */}
+      {isDone && <SuccessPopUp />}
     </Stack>
   );
 };

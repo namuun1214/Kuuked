@@ -11,6 +11,7 @@ import { UserContext } from '../screen/home/userProvider';
 export const Header = ({ withBack = false, headerText = '', menu = true }) => {
   const navigation = useNavigation();
   const goBack = () => {
+    setMenuClicked(false);
     navigation.goBack();
   };
   const { isMenuClicked, setMenuClicked } = useContext(UserContext);
@@ -55,7 +56,6 @@ export const Header = ({ withBack = false, headerText = '', menu = true }) => {
                 {menu && (
                   <Pressable
                     onPress={() => {
-                      console.log('aanh');
                       handleMenuClick();
                     }}>
                     <MenuIcon />

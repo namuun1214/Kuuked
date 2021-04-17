@@ -39,7 +39,6 @@ const NewsDetailScreen = () => {
       await delay(1000);
       setDone(false);
     } else {
-      console.log('ustgalaa');
     }
   }, [saved]);
   return (

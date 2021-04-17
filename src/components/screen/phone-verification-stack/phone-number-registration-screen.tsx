@@ -38,7 +38,6 @@ export const PhoneNumberRegistrationScreen = ({ navigation }) => {
     }
     setLoading(true);
     try {
-      console.log(phonenumber);
       await signInWithPhoneNumber(`+976${phonenumber}`);
       navigation.navigate(NavigationRoutes.CodeVerificationScreen, {
         phonenumber,

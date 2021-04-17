@@ -4,9 +4,9 @@ import { Margin, Padding, Queue, Stack, Text } from '../../index';
 import { Header } from '../../header';
 import { Border } from '../../core';
 import _ from 'lodash';
-import { SymptomList } from './symptom-list';
-import { SurgeryList } from './surgery-list-screen';
-const HealthScreen = () => {
+import { SymptomLog } from './symptom-log';
+import { SurgeryLog } from './surgery-log';
+const HealthLogScreen = () => {
   const [isSurgeryClicked, setSurgeryClicked] = useState(true);
   const [isSymptomClicked, setSymptomClicked] = useState(false);
   return (
@@ -27,7 +27,7 @@ const HealthScreen = () => {
                   <Text
                     type="primaryBody1"
                     role={isSurgeryClicked ? 'light' : 'info'}>
-                    Үзлэгүүд
+                    Шинэ үзлэг
                   </Text>
                 </Padding>
               </Border>
@@ -52,8 +52,8 @@ const HealthScreen = () => {
           </Queue>
           <Padding bottom={11}>
             <ScrollView>
-              {isSymptomClicked && <SymptomList />}
-              {isSurgeryClicked && <SurgeryList />}
+              {isSymptomClicked && <SymptomLog />}
+              {isSurgeryClicked && <SurgeryLog />}
             </ScrollView>
           </Padding>
         </Stack>
@@ -62,4 +62,4 @@ const HealthScreen = () => {
   );
 };
 
-export default HealthScreen;
+export default HealthLogScreen;

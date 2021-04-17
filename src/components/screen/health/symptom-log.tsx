@@ -9,6 +9,7 @@ import { useFirestoreCollection } from '../../../firebase';
 import { USERS_HOME, useUserUID } from '../../../authentication';
 import { useNavigation } from '@react-navigation/core';
 import { NavigationRoutes } from '../../navigation/navigation-param';
+import { delay } from '../../../utils';
 export const SymptomLog = () => {
   const { filePath, chooseFile } = useContext(PermissionContext);
   const [date, setDate] = useState('2020-05-15');
@@ -24,7 +25,8 @@ export const SymptomLog = () => {
   const saveSymptom = async () => {
     await createRecord(data);
     setDone(true);
-    navigation.navigate(NavigationRoutes.MainRoot);
+    await delay(1000);
+    navigation.navigate(NavigationRoutes.HealthScreen);
   };
   useEffect(() => {
     setData({ ...data, images: filePath });

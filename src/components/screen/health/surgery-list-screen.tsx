@@ -11,18 +11,15 @@ import { SymptomLog } from './symptom-log';
 export const SurgeryList = () => {
   const uid = useUserUID();
   const navigation = useNavigation();
-  const { data } = useFirestoreCollection([USERS_HOME, uid, 'symptoms']);
+  const { data } = useFirestoreCollection([USERS_HOME, uid, 'surgery']);
   return (
     <Stack size={3}>
       {data &&
         data.map(item => {
-          console.log(
-            moment.unix(item.createdAt.seconds).format('MM/DD/YYYY').toString(),
-          );
           return (
             <Pressable
               onPress={() => {
-                navigation.navigate(NavigationRoutes.HealthScreen);
+                navigation.navigate(NavigationRoutes.HealthDetailScreen, item);
               }}>
               <Border
                 radius="large"
@@ -32,15 +29,13 @@ export const SurgeryList = () => {
                 <Padding size={[5, 3, 5, 3]}>
                   <Queue justifyContent="space-between">
                     <Text>
-                      {' '}
-                      {item.symptom.slice(0, 30)}
-                      {'...'}
+                      {item.doctorName} {' эмч'}
                     </Text>
                     <Text role="tertiary">
-                      {moment
+                      {/* {moment
                         .unix(item.createdAt.seconds)
                         .format('MM/DD/YYYY')
-                        .toString()}
+                        .toString()} */}
                     </Text>
                   </Queue>
                 </Padding>
@@ -51,8 +46,9 @@ export const SurgeryList = () => {
       <Button
         radius="large"
         backgroundRole="success"
+        textRole="light"
         onPress={() => {
-          navigation.navigate(NavigationRoutes.HealthScreen);
+          navigation.navigate(NavigationRoutes.HealthLogScreen);
         }}>
         Шинээр бүртгэх
       </Button>

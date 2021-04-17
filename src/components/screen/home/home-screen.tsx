@@ -79,7 +79,7 @@ const HomeScreen = () => {
                       width={50}
                     />
                   </Border>
-                  <Text type="headline2" role="primary">
+                  <Text type="headline3" role="primary">
                     {userInfo.name}
                   </Text>
                   <Text type="primaryBody2" role="primary">

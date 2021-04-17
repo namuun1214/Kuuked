@@ -13,7 +13,6 @@ import { NavigationRoutes } from '../../navigation/navigation-param';
 const HospitalInfo = ({ item }) => {
   const navigation = useNavigation();
   const onCallPhone = () => {
-    console.log('hoho');
     Linking.openURL(`tel:+976${item?.phone}`);
   };
   const gotoDetail = (item: object | undefined) => {
@@ -24,13 +23,13 @@ const HospitalInfo = ({ item }) => {
       onPress={() => {
         gotoDetail(item);
       }}>
-      <Border topWidth="medium" bottomWidth="medium" role="secondary">
-        <Padding size={[3, 2, 3, 2]}>
+      <Border topWidth="xlight" role="secondary">
+        <Padding size={[3, 2, 0, 2]}>
           <Queue justifyContent="space-between" alignItems="center">
             <RemoteImage url={item?.image} width={40} />
             <Stack size={3}>
               <Text type="primaryBody1">{item?.name}</Text>
-              <Text type="paragraph">{item?.address}</Text>
+              <Text type="tertiaryBody2">{item?.address}</Text>
             </Stack>
             <Pressable
               onPress={() => {
@@ -47,11 +46,12 @@ const HospitalInfo = ({ item }) => {
 export const EmergencyListScreen = () => {
   const articles = [
     'Хүүхэд',
-    'Эмэгтэйчүүд',
-    'Шүд',
     'Харшил',
     'Гэмтэл',
     'Нярай',
+    'Эмэгтэйчүүд',
+    'Шүд',
+    'Уламжлал',
     'Бусад',
   ];
   const [selectedArticles, setSelectedArticles] = useState(['']);
@@ -73,9 +73,9 @@ export const EmergencyListScreen = () => {
           <View
             style={{
               flexDirection: 'row',
-              alignContent: 'space-around',
+              alignContent: 'center',
               flexWrap: 'wrap',
-              justifyContent: 'space-between',
+              justifyContent: 'space-around',
             }}>
             {articles.map(article => {
               const selected = isSelected(article);
@@ -83,9 +83,10 @@ export const EmergencyListScreen = () => {
                 <Margin size={[2, 0, 2, 0]}>
                   <Border
                     role={selected ? 'success' : 'info'}
-                    lineWidth="thick"
+                    lineWidth="light"
                     radius="xlarge">
                     <Button
+                      type="secondaryBody2"
                       size={[1, 2, 1, 2]}
                       onPress={() => {
                         addArticle(article);

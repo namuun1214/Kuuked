@@ -61,8 +61,6 @@ export const PermissionProvider = ({ children }) => {
     let isStoragePermitted = await requestExternalWritePermission();
     if (isCameraPermitted && isStoragePermitted) {
       launchCamera(options, response => {
-        console.log('Response = ', response);
-
         if (response.didCancel) {
           Alert.alert('User cancelled camera picker');
           return;
