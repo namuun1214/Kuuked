@@ -182,52 +182,54 @@ const NewsScreen = () => {
         withBack={true}
         headerText={isSaved ? 'Хадгалсан' : 'Мэдээ мэдээлэл'}
       />
-      <Margin size={[5, 5, 5, 5]}>
-        <Stack size={5}>
-          <Queue justifyContent="space-between">
-            <Pressable
-              onPress={() => {
-                setNewsClicked(!isNewsClicked);
-                setRecipeClicked(isNewsClicked);
-              }}>
-              <Border
-                radius="large"
-                backgroundRole={isNewsClicked ? 'info' : 'light'}>
-                <Padding size={[4, 6, 4, 6]}>
-                  <Text
-                    type="primaryBody1"
-                    role={isNewsClicked ? 'light' : 'info'}>
-                    Мэдээ
-                  </Text>
-                </Padding>
-              </Border>
-            </Pressable>
-            <Pressable
-              onPress={() => {
-                setRecipeClicked(!isRecipeClicked);
-                setNewsClicked(isRecipeClicked);
-              }}>
-              <Border
-                radius="large"
-                backgroundRole={isRecipeClicked ? 'info' : 'light'}>
-                <Padding size={[4, 4, 4, 4]}>
-                  <Text
-                    type="primaryBody1"
-                    role={isRecipeClicked ? 'light' : 'info'}>
-                    Хоолны жор
-                  </Text>
-                </Padding>
-              </Border>
-            </Pressable>
-          </Queue>
-          <ScrollView>
+      <Margin size={[5, 5, 0, 5]}>
+        <Queue justifyContent="space-between">
+          <Pressable
+            onPress={() => {
+              setNewsClicked(!isNewsClicked);
+              setRecipeClicked(isNewsClicked);
+            }}>
+            <Border
+              radius="large"
+              backgroundRole={isNewsClicked ? 'info' : 'light'}>
+              <Padding size={[4, 6, 4, 6]}>
+                <Text
+                  type="primaryBody1"
+                  role={isNewsClicked ? 'light' : 'info'}>
+                  Мэдээ
+                </Text>
+              </Padding>
+            </Border>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              setRecipeClicked(!isRecipeClicked);
+              setNewsClicked(isRecipeClicked);
+            }}>
+            <Border
+              radius="large"
+              backgroundRole={isRecipeClicked ? 'info' : 'light'}>
+              <Padding size={[4, 4, 4, 4]}>
+                <Text
+                  type="primaryBody1"
+                  role={isRecipeClicked ? 'light' : 'info'}>
+                  Хоолны жор
+                </Text>
+              </Padding>
+            </Border>
+          </Pressable>
+        </Queue>
+      </Margin>
+      <Margin size={[5, 5, 8, 5]}>
+        <ScrollView>
+          <Stack size={5}>
             {isNewsClicked ? (
               <NewsList isSaved={isSaved} />
             ) : (
               <RecipeList isSaved={isSaved} />
             )}
-          </ScrollView>
-        </Stack>
+          </Stack>
+        </ScrollView>
       </Margin>
     </SafeAreaView>
   );

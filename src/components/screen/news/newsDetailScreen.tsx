@@ -38,7 +38,6 @@ const NewsDetailScreen = () => {
       setDone(true);
       await delay(1000);
       setDone(false);
-    } else {
     }
   }, [saved]);
   return (
@@ -55,9 +54,7 @@ const NewsDetailScreen = () => {
               </Center>
             </View>
             <Queue justifyContent="space-between" alignItems="center">
-              <Text type="secondaryBody1" textAlign="left">
-                {item?.title}
-              </Text>
+              <Text type="secondaryBody1">{item?.title}</Text>
               <Pressable
                 onPress={() => {
                   setSaved(!saved);

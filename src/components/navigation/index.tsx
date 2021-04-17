@@ -29,6 +29,7 @@ import {
   PhoneNumberRegistrationScreen,
   PhoneRegistrationSuccessScreen,
 } from '../screen/phone-verification-stack';
+import ProfileScreen from '../screen/profile/profile-screen';
 import { NavigationRoutes, NavigatorParamList } from './navigation-param';
 import { MainRoot } from './tab-bar';
 
@@ -173,7 +174,11 @@ export const HomeStack = () => (
       component={EmergencyDetailScreen}
       options={{ headerShown: false, gestureEnabled: true }}
     />
-
+    <RootStack.Screen
+      name={NavigationRoutes.ProfileScreen}
+      component={ProfileScreen}
+      options={{ headerShown: false, gestureEnabled: true }}
+    />
     <RootStack.Screen
       name={NavigationRoutes.MemoryListScreen}
       component={MemoryListScreen}

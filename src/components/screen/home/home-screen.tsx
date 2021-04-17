@@ -21,7 +21,7 @@ import { Image } from 'react-native-animatable';
 import moment from 'moment';
 const window = Dimensions.get('window');
 
-const DailyRoutine = props => {
+export const DailyRoutine = props => {
   const navigation = useNavigation();
   const { name, url } = props;
   return (
@@ -52,13 +52,10 @@ const DailyRoutine = props => {
 };
 
 const HomeScreen = () => {
-  const { signOut, user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { userInfo, userAge } = useContext(UserContext);
   const navigation = useNavigation();
   const { catalog: categoryData } = useContext(CatalogContext);
-  const gotoCategoryScreen = () => {
-    navigation.navigate(NavigationRoutes.SelectCategoryScreen);
-  };
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header withBack={false} headerText="Нүүр хуудас" />
@@ -104,25 +101,6 @@ const HomeScreen = () => {
             <Border topWidth="medium" role="info" />
             <Text type="headline3">Шинэ мэдээ</Text>
             <NewsList limit={3} isSaved={false} />
-            <Button
-              backgroundRole="info"
-              radius="xmedium"
-              size={[4, 0, 4, 0]}
-              onPress={gotoCategoryScreen}
-              textRole="light">
-              Категори Сонгох
-            </Button>
-            <Button
-              backgroundRole="info"
-              radius="xmedium"
-              size={[4, 0, 4, 0]}
-              onPress={() => {
-                signOut();
-                navigation.navigate(NavigationRoutes.WelcomeScreen);
-              }}
-              textRole="light">
-              Logout {user?.phoneNumber}
-            </Button>
           </Stack>
         </Margin>
       </ScrollView>

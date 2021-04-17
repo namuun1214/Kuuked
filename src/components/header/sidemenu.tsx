@@ -55,7 +55,7 @@ export const SideMenu: FC = () => {
           <SideMenuItems
             text="Профайл"
             icon={<ProfileIcon />}
-            navigate={'BabyInfoScreen'}
+            navigate={'ProfileScreen'}
           />
           <SideMenuItems
             text="Мэдээлэл"
