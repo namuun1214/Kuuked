@@ -53,13 +53,12 @@ const DailyRoutine = props => {
 
 const HomeScreen = () => {
   const { signOut, user } = useContext(AuthContext);
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, userAge } = useContext(UserContext);
   const navigation = useNavigation();
   const { catalog: categoryData } = useContext(CatalogContext);
   const gotoCategoryScreen = () => {
     navigation.navigate(NavigationRoutes.SelectCategoryScreen);
   };
-  let bornDateMoment = moment(userInfo.bornDate, 'YYYY/MM/DD');
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header withBack={false} headerText="Нүүр хуудас" />
@@ -83,7 +82,7 @@ const HomeScreen = () => {
                     {userInfo.name}
                   </Text>
                   <Text type="primaryBody2" role="primary">
-                    {moment().diff(bornDateMoment, 'months')}
+                    {userAge}
                     {' сартай'}
                   </Text>
                 </Queue>

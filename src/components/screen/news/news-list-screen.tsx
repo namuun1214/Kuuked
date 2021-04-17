@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Dimensions, Pressable, SafeAreaView } from 'react-native';
 import { Border, Margin, Stack, Text } from '../../index';
 import { Header } from '../../header';
@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/core';
 import _ from 'lodash';
 import { Route, useRoute } from '@react-navigation/native';
 import { USERS_HOME, useUserUID } from '../../../authentication';
+import { UserContext } from '../home/userProvider';
 const window = Dimensions.get('window');
 export const NewsList = ({ limit, isSaved }) => {
   const gotoDetail = (item: object | undefined) => {
@@ -94,6 +95,7 @@ const RecipeList = ({ isSaved }) => {
   const gotoDetail = (item: object | undefined) => {
     navigation.navigate(NavigationRoutes.NewsDetailScreen, { item, isSaved });
   };
+  const { userAge } = useContext(UserContext);
   const uid = useUserUID();
   const navigation = useNavigation();
   const { data: recipeList } = useFirestoreCollection(
@@ -102,6 +104,20 @@ const RecipeList = ({ isSaved }) => {
   return (
     <Margin size={[2, 2, 2, 2]}>
       <Stack size={5}>
+        {userAge < 6 && (
+          <Border
+            role="error"
+            lineWidth="light"
+            radius="large"
+            backgroundRole="error">
+            <Padding size={[2, 3, 2, 3]}>
+              <Text role="secondary" type="primaryBody3">
+                Хүүхэд нэмэлт хоолонд орох тохиромжтой хугацаа 6+ сар гэдгийг
+                анхаараарай. Таны хүүхэд арай л болоогүй байна шүү.
+              </Text>
+            </Padding>
+          </Border>
+        )}
         {recipeList &&
           recipeList.map(
             (item: {

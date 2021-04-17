@@ -3,6 +3,7 @@ import moment from 'moment';
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { View } from 'react-native-animatable';
+import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Border, Button, Text } from '../..';
 import { Header } from '../../header';
@@ -115,7 +116,7 @@ const SymptomDetail = ({ item }) => {
     },
   });
   return (
-    <Stack size={4}>
+    <Stack size={6}>
       <Text type="headline3" textAlign="center" role="success">
         Шинж тэмдэгийн мэдээлэл
       </Text>
@@ -131,14 +132,17 @@ const SymptomDetail = ({ item }) => {
           {item?.symptom}
         </Text>
       </Stack>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        {item?.images &&
-          item?.images.map(file => {
-            return (
-              <Image source={{ uri: file.uri }} style={styles.imageStyle} />
-            );
-          })}
-      </View>
+      <Stack size={2}>
+        <Text>Оруулсан зургууд</Text>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+          {item?.images &&
+            item?.images.map(file => {
+              return (
+                <Image source={{ uri: file.uri }} style={styles.imageStyle} />
+              );
+            })}
+        </View>
+      </Stack>
       <Stack size={2}>
         <Text>Хэзээнээс илэрсэн</Text>
         <Text type="secondaryBody1" role="tertiary">
@@ -173,8 +177,10 @@ export const HealthDetailScreen = () => {
     <SafeAreaView>
       <Header withBack={true} headerText="Дэлгэрэнгүй" />
       <Margin size={[5, 5, 5, 5]}>
-        {item?.treatment && <SurgeryDetail item={item} />}
-        {item?.respond && <SymptomDetail item={item} />}
+        <ScrollView>
+          {item?.treatment && <SurgeryDetail item={item} />}
+          {item?.respond && <SymptomDetail item={item} />}
+        </ScrollView>
       </Margin>
     </SafeAreaView>
   );
