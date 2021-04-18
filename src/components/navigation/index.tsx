@@ -29,6 +29,7 @@ import {
   PhoneRegistrationSuccessScreen,
 } from '../screen/phone-verification-stack';
 import ProfileScreen from '../screen/profile/profile-screen';
+import { LogResultScreen } from '../screen/results/daily-log-result-screen';
 import { GrowthScreen } from '../screen/results/growth-screen';
 import { NavigationRoutes, NavigatorParamList } from './navigation-param';
 import { MainRoot } from './tab-bar';
@@ -187,6 +188,11 @@ export const HomeStack = () => (
     <RootStack.Screen
       name={NavigationRoutes.GrowthScreen}
       component={GrowthScreen}
+      options={{ headerShown: false, gestureEnabled: true }}
+    />
+    <RootStack.Screen
+      name={NavigationRoutes.LogResultScreen}
+      component={LogResultScreen}
       options={{ headerShown: false, gestureEnabled: true }}
     />
   </RootStack.Navigator>

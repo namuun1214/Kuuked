@@ -78,9 +78,14 @@ export const SideMenu: FC = () => {
             navigate={'SavedScreen'}
           />
           <SideMenuItems
-            text="Үр дүн"
+            text="Өсөлтийн график"
             icon={<ChartIcon />}
             navigate={'GrowthScreen'}
+          />
+          <SideMenuItems
+            text="Үр дүн"
+            icon={<ChartIcon />}
+            navigate={'LogResultScreen'}
           />
         </Stack>
       </Overlay>

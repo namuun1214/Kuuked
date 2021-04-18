@@ -19,6 +19,7 @@ import { UserContext } from './userProvider';
 import { Circle } from 'react-native-svg';
 import { Image } from 'react-native-animatable';
 import moment from 'moment';
+import { Shadow } from '../../core';
 const window = Dimensions.get('window');
 
 export const DailyRoutine = props => {
@@ -30,22 +31,24 @@ export const DailyRoutine = props => {
         navigation.navigate(NavigationRoutes.DailyScreen, { name });
       }}>
       <Margin size={[2, 2, 2, 2]}>
-        <Border
-          radius="large"
-          role="primary"
-          lineWidth="light"
-          backgroundRole="light">
-          <Padding size={[2, 2, 2, 2]}>
-            <Stack size={2} width={window.width / 4}>
-              <Center>
-                <RemoteImage width={60} resizeMode="contain" url={url} />
-              </Center>
-              <Text type="tertiaryBody2" numberOfLines={2} textAlign="center">
-                {name}
-              </Text>
-            </Stack>
-          </Padding>
-        </Border>
+        <Shadow>
+          <Border
+            radius="large"
+            role="primary"
+            lineWidth="light"
+            backgroundRole="light">
+            <Padding size={[2, 2, 2, 2]}>
+              <Stack size={2} width={window.width / 4}>
+                <Center>
+                  <RemoteImage width={65} resizeMode="contain" url={url} />
+                </Center>
+                <Text type="tertiaryBody2" numberOfLines={2} textAlign="center">
+                  {name}
+                </Text>
+              </Stack>
+            </Padding>
+          </Border>
+        </Shadow>
       </Margin>
     </Pressable>
   );
@@ -60,7 +63,7 @@ const HomeScreen = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <Header withBack={false} headerText="Нүүр хуудас" />
       <ScrollView>
-        <Margin size={[2, 3, 0, 3]}>
+        <Margin size={[2, 3, 2, 3]}>
           <Stack size={3}>
             <Border
               role="light"
@@ -101,6 +104,16 @@ const HomeScreen = () => {
             <Border topWidth="medium" role="info" />
             <Text type="headline3">Шинэ мэдээ</Text>
             <NewsList limit={3} isSaved={false} />
+            <Button
+              borderRole="info"
+              backgroundRole="lightCyan"
+              size={[2, 2, 2, 2]}
+              onPress={() => {
+                navigation.navigate(NavigationRoutes.NewsScreen);
+              }}
+              textRole="tertiary">
+              Дэлгэрэнгүй
+            </Button>
           </Stack>
         </Margin>
       </ScrollView>

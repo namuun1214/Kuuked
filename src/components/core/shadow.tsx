@@ -11,7 +11,6 @@ export const Shadow = props => {
       shadowOffset: { height: 0, width: 0 },
 
       elevation: 40,
-      backgroundColor: 'black',
       borderRadius: 4,
 
       overflow: Platform.OS !== 'ios' ? 'hidden' : 'visible',

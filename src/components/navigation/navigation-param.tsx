@@ -23,6 +23,7 @@ export enum NavigationRoutes {
   HealthLogScreen = 'HealthLogScreen',
   HealthDetailScreen = 'HealthDetailScreen',
   GrowthScreen = 'GrowthScreen',
+  LogResultScreen = 'LogResultScreen',
 }
 export interface NavigationPayload<T> {
   props: T;
@@ -52,4 +53,5 @@ export type NavigatorParamList = {
   [NavigationRoutes.HealthLogScreen]: NavigationPayload<any>;
   [NavigationRoutes.HealthDetailScreen]: NavigationPayload<any>;
   [NavigationRoutes.GrowthScreen]: NavigationPayload<any>;
+  [NavigationRoutes.LogResultScreen]: NavigationPayload<any>;
 };
