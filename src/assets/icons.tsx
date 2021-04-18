@@ -1020,7 +1020,44 @@ export const ClockIcon = props => {
     </Svg>
   );
 };
-
+export const ChartLabel2 = () => {
+  return (
+    <Svg
+      width={10}
+      height={10}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <Circle
+        cx={10}
+        cy={10}
+        r={9}
+        fill="#AFAFAF"
+        stroke="#898989"
+        strokeWidth={2}
+      />
+    </Svg>
+  );
+};
+export const ChartLabel1 = props => {
+  return (
+    <Svg
+      width={10}
+      height={10}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <Circle
+        cx={10}
+        cy={10}
+        r={9}
+        fill="#FF80B0"
+        stroke="#F23B9F"
+        strokeWidth={2}
+      />
+    </Svg>
+  );
+};
 export const LocationIcon = props => {
   const { height, width } = props;
   return (

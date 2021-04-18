@@ -198,8 +198,9 @@ export const BabyInfoScreen = () => {
                   backgroundRole="light"
                   size={Platform.OS === 'ios' ? [4, 0, 4, 4] : [2, 0, 2, 4]}
                   role="info"
+                  keyboardType="numeric"
                   onChangeText={text => {
-                    setNewInfo({ ...newInfo, height: text });
+                    setNewInfo({ ...newInfo, height: parseInt(text) });
                   }}
                 />
               </Stack>
@@ -213,8 +214,9 @@ export const BabyInfoScreen = () => {
                   backgroundRole="light"
                   size={Platform.OS === 'ios' ? [4, 0, 4, 4] : [2, 0, 2, 4]}
                   role="info"
+                  keyboardType="numeric"
                   onChangeText={text => {
-                    setNewInfo({ ...newInfo, weight: text });
+                    setNewInfo({ ...newInfo, weight: parseInt(text) });
                   }}
                 />
               </Stack>

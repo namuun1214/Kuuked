@@ -46,7 +46,7 @@ const DailyRoutine = (props: {
   );
 };
 
-export default () => {
+export const SelectCategoryScreen = () => {
   const navigation = useNavigation();
   let { data } = useFirestoreCollection(['catalog']);
   const { save, catalog } = useContext(CatalogContext);
