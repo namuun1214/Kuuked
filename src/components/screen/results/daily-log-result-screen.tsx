@@ -9,67 +9,128 @@ import { Center, Margin, Padding, Queue, Spacer, Stack } from '../../layout';
 import { CatalogContext } from '../category/categoryProvider';
 import EventCalendar from 'react-native-events-calendar';
 import { SafeAreaScreen } from '..';
-import { useFirestoreCollection } from '../../../firebase';
+import {
+  useFirestoreCollection,
+  useFirestoreDocument,
+} from '../../../firebase';
 import { USERS_HOME, useUserUID } from '../../../authentication';
 import moment from 'moment';
-import { cos } from 'react-native-reanimated';
+import { useNavigation } from '@react-navigation/core';
+import { PopUp } from '../../pop-up';
+import { UserContext } from '../home/userProvider';
 const MonthResult = () => {
+  const uid = useUserUID();
+  const { data: routineData } = useFirestoreCollection([
+    USERS_HOME,
+    uid,
+    'routine',
+  ]);
   const { catalog } = useContext(CatalogContext);
+  let routineDateList = [];
+  routineData &&
+    routineData.map(item => {
+      routineDateList.push(
+        moment.unix(item?.createdAt.seconds).format('MM/DD').toString(),
+      );
+    });
+  routineDateList = _.uniq(routineDateList);
+  // const navigation = useNavigation();
+  const groupedData = _.mapValues(_.groupBy(routineData, 'catalog'), list =>
+    list.map(item => _.omit(item, 'catalog')),
+  );
+  const { userAge } = useContext(UserContext);
+  const [isPopUpDisplay, setPopUpDisplay] = useState(false);
+  const { data: modelData } = useFirestoreDocument([
+    'modelData',
+    'od8LHek9xy251Bi3BVzj',
+  ]);
+  const setCompareClicked = () => {
+    setPopUpDisplay(true);
+  };
   return (
     <Margin size={[3, 5, 3, 5]}>
       <Stack size={3}>
-        <Pressable>
-          <Shadow>
-            <Border backgroundRole="light" radius="large">
-              <Padding size={[3, 3, 3, 5]}>
-                <Queue alignItems="center" size={4}>
-                  <Text type="headline2">1</Text>
-                  <Border
-                    leftWidth="medium"
-                    role="info"
-                    backgroundRole="yellow"
-                  />
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignContent: 'space-between',
-                      flexWrap: 'wrap',
-                    }}>
-                    {catalog &&
-                      catalog.map(item => {
-                        return (
-                          <Queue
-                            justifyContent="space-between"
-                            alignItems="center">
-                            <Padding size={[2, 0, 2, 0]}>
-                              <Border
-                                role="light"
-                                lineWidth="light"
-                                radius="large"
-                                backgroundRole="lightYellow">
-                                <RemoteImage
-                                  width={30}
-                                  resizeMode="contain"
-                                  url={item.image}
-                                />
-                              </Border>
-                            </Padding>
-                            <Spacer horizintal={false} size={2} />
-                            <Text>2цаг 30 ми</Text>
-                          </Queue>
-                        );
-                      })}
-                  </View>
-                </Queue>
-              </Padding>
-            </Border>
-          </Shadow>
-        </Pressable>
-        <Text>hah</Text>
-        <Text>hah</Text>
-        <Text>hah</Text>
-        <Text>hah</Text>
+        {routineDateList.map(routine => {
+          return (
+            <Pressable
+              onPress={() => {
+                // navigation.navigate()
+              }}>
+              <Shadow>
+                <Border backgroundRole="light" radius="large">
+                  <Padding size={[3, 3, 3, 5]}>
+                    <Queue alignItems="center" size={4}>
+                      <Text type="headline2">{routine}</Text>
+                      <Border
+                        leftWidth="medium"
+                        role="info"
+                        backgroundRole="yellow"
+                      />
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignContent: 'space-between',
+                          flexWrap: 'wrap',
+                        }}>
+                        {catalog &&
+                          catalog.map(item => {
+                            return (
+                              <View style={{ width: 100 }}>
+                                <Queue
+                                  justifyContent="flex-start"
+                                  alignItems="center">
+                                  <Padding size={[2, 0, 2, 0]}>
+                                    <RemoteImage
+                                      width={25}
+                                      resizeMode="contain"
+                                      url={item.image}
+                                    />
+                                  </Padding>
+                                  <Spacer horizintal={false} size={2} />
+                                  <Text type="secondaryBody1">2цаг</Text>
+                                </Queue>
+                              </View>
+                            );
+                          })}
+                      </View>
+                    </Queue>
+                  </Padding>
+                </Border>
+              </Shadow>
+            </Pressable>
+          );
+        })}
+        <Button
+          type="primaryBody2"
+          backgroundRole="success"
+          textRole="light"
+          size={[3, 2, 3, 2]}
+          onPress={() => {
+            setCompareClicked();
+          }}>
+          Жишигтэй харьцуулах
+        </Button>
       </Stack>
+      {isPopUpDisplay && (
+        <PopUp>
+          <Padding size={[2, 3, 2, 3]}>
+            <Stack size={3}>
+              <Text>
+                Таны хүүхдийн насны хүүхэд {modelData?.drinkSize[userAge][0]} -{' '}
+                {modelData?.drinkSize[userAge][1]} хэмжээний юм уух ёстой.
+              </Text>
+              <Button
+                backgroundRole="success"
+                textRole="light"
+                onPress={() => {
+                  setPopUpDisplay(false);
+                }}>
+                Буцах
+              </Button>
+            </Stack>
+          </Padding>
+        </PopUp>
+      )}
     </Margin>
   );
 };
@@ -108,10 +169,9 @@ const DayResult = () => {
         summary: item.note,
       });
     });
-
+  const [isDetailClicked, setDetailClicked] = useState({});
   const eventClicked = event => {
-    //On Click of event showing alert from here
-    Alert.alert(JSON.stringify(event));
+    setDetailClicked(event);
   };
   let { width } = Dimensions.get('window');
   return (
@@ -125,6 +185,35 @@ const DayResult = () => {
         initDate={'2021-04-11'}
         // scrollToFirst={false}
       />
+      {!_.isEmpty(isDetailClicked) && (
+        <PopUp>
+          <Stack size={4}>
+            <Text role="success" textAlign="center">
+              {isDetailClicked.title}
+            </Text>
+            <Queue justifyContent="space-between">
+              <Text role="tertiary"> Эхэлсэн цаг</Text>
+              <Text>{isDetailClicked.start}</Text>
+            </Queue>
+            <Queue justifyContent="space-between">
+              <Text role="tertiary"> Дууссан цаг</Text>
+              <Text>{isDetailClicked.end}</Text>
+            </Queue>
+            <Queue justifyContent="space-between">
+              <Text role="tertiary"> Тэмдэглэл</Text>
+              <Text>{isDetailClicked.summary}</Text>
+            </Queue>
+            <Button
+              backgroundRole="success"
+              textRole="light"
+              onPress={() => {
+                setDetailClicked({});
+              }}>
+              Буцах
+            </Button>
+          </Stack>
+        </PopUp>
+      )}
     </View>
     // </SafeAreaView>
   );
