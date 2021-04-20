@@ -35,9 +35,10 @@ const MonthResult = () => {
     });
   routineDateList = _.uniq(routineDateList);
   // const navigation = useNavigation();
-  const groupedData = _.mapValues(_.groupBy(routineData, 'catalog'), list =>
-    list.map(item => _.omit(item, 'catalog')),
-  );
+  // const groupedData = _.mapValues(_.groupBy(routineData, 'catalog'), list =>
+  //   list.map(item => _.omit(item, 'catalog')),
+  // );
+  routineData && console.log(JSON.stringify(routineData));
   const { userAge } = useContext(UserContext);
   const [isPopUpDisplay, setPopUpDisplay] = useState(false);
   const { data: modelData } = useFirestoreDocument([

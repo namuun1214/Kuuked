@@ -1,11 +1,13 @@
 import { useNavigation } from '@react-navigation/core';
+import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
 import { Pressable } from 'react-native';
+import { EmptyIcon } from '../../../assets';
 import { USERS_HOME, useUserUID } from '../../../authentication';
 import { useFirestoreCollection } from '../../../firebase';
 import { Border, Button, Text } from '../../core';
-import { Padding, Queue, Stack } from '../../layout';
+import { Center, Padding, Queue, Stack } from '../../layout';
 import { NavigationRoutes } from '../../navigation/navigation-param';
 import { SymptomLog } from './symptom-log';
 export const SymptomList = () => {
@@ -14,6 +16,14 @@ export const SymptomList = () => {
   const { data } = useFirestoreCollection([USERS_HOME, uid, 'symptoms']);
   return (
     <Stack size={3}>
+      {data && _.isEmpty(data) && (
+        <Stack size={3}>
+          <Center>
+            <EmptyIcon />
+            <Text textAlign="center">Одоогоор бүртгэл байхгүй байна</Text>
+          </Center>
+        </Stack>
+      )}
       {data &&
         data.map(item => {
           return (
