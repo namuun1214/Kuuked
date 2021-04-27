@@ -23,6 +23,7 @@ export const SymptomLog = () => {
     'symptoms',
   ]);
   const saveSymptom = async () => {
+    console.log(data);
     await createRecord(data);
     setDone(true);
     await delay(3000);

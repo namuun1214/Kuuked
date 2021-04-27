@@ -14,6 +14,7 @@ export const SymptomList = () => {
   const uid = useUserUID();
   const navigation = useNavigation();
   const { data } = useFirestoreCollection([USERS_HOME, uid, 'symptoms']);
+  console.log(data);
   return (
     <Stack size={3}>
       {data && _.isEmpty(data) && (
@@ -45,7 +46,7 @@ export const SymptomList = () => {
                     </Text>
                     <Text role="tertiary">
                       {moment
-                        .unix(item.createdAt.seconds)
+                        .unix(item?.createdAt?.seconds)
                         .format('MM/DD/YYYY')
                         .toString()}
                     </Text>
